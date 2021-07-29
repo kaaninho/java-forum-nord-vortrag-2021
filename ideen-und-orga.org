@@ -1,0 +1,23 @@
+#+title: Mach Deine eigene Programmiersprache! (Ohne Deine eigene Programmiersprache machen zu müssen!)
+
+* Orga
+
+Talkdauer: 45 Minuten
+Q & A: 5 Minuten
+
+Zu jeder vollen Stunde ein Talk. Nach Talk 10 Minuten Pause.
+
+* Gliederung
+
+- 10 Minuten Einführung in Clojure
+- 15 Minuten Einführung in Makros (mit Mini-Syntax-Erleichterungs-Beispielen wie
+  z. B. =when= oder Threading-Operator)
+- 20 Minuten nützliche Makros selbst programmieren 
+
+
+* Ideen für nützliche Makros
+
+- =time=-Makro als erstes kleines Beispiel (wird schon für Staunen sorgen!)
+- active-records: Vllt. zu uninteressant, bzw. zu wenig "eigene Sprache"?
+- "typed clojure": Zu umfrangreich? Zu viele Fallstricke?
+
