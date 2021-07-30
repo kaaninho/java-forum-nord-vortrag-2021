@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Mach Deine eigene Programmiersprache!</title>
+<meta name="author" content="Kaan Sahin, Active Group GmbH"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="file:///home/kaan/tmp/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="file:///home/kaan/tmp/reveal.js/css/theme/active.css" id="theme"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'file:///home/kaan/tmp/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1 class="title">Mach Deine eigene Programmiersprache!</h1><h2 class="author">Kaan Sahin, Active Group GmbH</h2><p class="date">Created: 2021-07-30 Fr 14:54</p>
+</section>
+
+<section>
+<section id="slide-org23df844">
+<h2 id="org23df844">Mach Deine eigene Programmiersprache!</h2>
+
+<div id="org042cad8" class="figure">
+<p><img src="images/drawing-hands.jpg" alt="drawing-hands.jpg" width="400px" />
+</p>
+</div>
+
+
+<p>
+Kaan Sahin, Active Group GmbH
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgae47fb2">
+<h2 id="orgae47fb2">Motivation &#x2013; Pattern Matching</h2>
+<p>
+Elixir
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elixir">  <span style="color: #F92660;">def</span> <span style="color: #A6E22E;">fun</span>([<span style="color: #E6DB74;">"Hi"</span>, name]), <span style="color: #66D9EF;">do:</span> <span style="color: #E6DB74;">"What's up, "</span> &lt;&gt; name &lt;&gt; <span style="color: #E6DB74;">"?"</span>
+  <span style="color: #F92660;">def</span> <span style="color: #A6E22E;">fun</span>([<span style="color: #E6DB74;">"Hi"</span>, name, last_name]), <span style="color: #66D9EF;">do:</span> <span style="color: #E6DB74;">"Hey, "</span> &lt;&gt; name &lt;&gt; <span style="color: #E6DB74;">" "</span> &lt;&gt; last_name
+  <span style="color: #F92660;">def</span> <span style="color: #A6E22E;">fun</span>(lis), <span style="color: #66D9EF;">do:</span> <span style="color: #E6DB74;">"something else"</span>
+
+<span style="color: #F92660;">case</span> {<span style="color: #9C91E4; font-weight: bold;">1</span>, <span style="color: #9C91E4; font-weight: bold;">2</span>, <span style="color: #9C91E4; font-weight: bold;">3</span>} <span style="color: #F92660;">do</span>
+  {<span style="color: #9C91E4; font-weight: bold;">1</span>, <span style="color: #9C91E4; font-weight: bold;">2</span>, <span style="color: #9C91E4; font-weight: bold;">4</span>} -&gt; <span style="color: #E6DB74;">"this won't match"</span>
+  {<span style="color: #9C91E4; font-weight: bold;">1</span>, <span style="color: #9C91E4; font-weight: bold;">2</span>, x} -&gt; x
+  <span style="color: #9C91E4;">_</span>         -&gt; <span style="color: #E6DB74;">"if nothing else matches"</span>
+<span style="color: #F92660;">end</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org5470203">
+<h2 id="org5470203">Motivation &#x2013; List Comprehensions</h2>
+<p>
+Haskell TODO: schlechtes Highlighting
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-haskell">[x <span style="color: #F8F8F2;">|</span> x <span style="color: #F8F8F2;">&lt;-</span> [<span style="color: #9C91E4; font-weight: bold;">1</span>, <span style="color: #9C91E4; font-weight: bold;">2</span>, <span style="color: #9C91E4; font-weight: bold;">3</span>, <span style="color: #9C91E4; font-weight: bold;">4</span>], x <span style="color: #F8F8F2;">&gt;</span> <span style="color: #9C91E4; font-weight: bold;">2</span>]
+</pre>
+</div>
+
+<p>
+<br />
+</p>
+
+<p>
+Python
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python">[x <span style="color: #F92660;">for</span> x <span style="color: #F92660;">in</span> <span style="color: #FD971F;">range</span>(<span style="color: #9C91E4; font-weight: bold;">20</span>) <span style="color: #F92660;">if</span> x % <span style="color: #9C91E4; font-weight: bold;">2</span> == <span style="color: #9C91E4; font-weight: bold;">0</span>]
+</pre>
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgc6ee419">
+<h2 id="orgc6ee419">Motivation</h2>
+<p>
+Weitere Schreiberleichterung: 
+</p>
+
+<ul>
+<li>Getter-/Setter-Funktionen</li>
+<li>Wiederkehrende Definitionen / Umständlichkeiten</li>
+
+</ul>
+
+<p>
+Spracherweiterung:
+</p>
+
+<ul>
+<li>Concurrency-Modell</li>
+<li>DSLs</li>
+<li>Static Typesystem</li>
+<li>. . .</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb1f856b">
+<h2 id="orgb1f856b">Clojure</h2>
+<ul>
+<li>Lisp-Dialekt</li>
+<li>Läuft auf der JVM</li>
+<li>ermutigt funktionale Programmierung</li>
+
+</ul>
+
+<p>
+<br />
+<br />
+</p>
+
+<p>
+<i>auch schön: Racket</i>
+</p>
+
+<aside class="notes">
+<ul>
+<li>JVM: etablierte, anerkannte Umgebung</li>
+<li>funktional: immutable data &amp; first-class functions</li>
+
+</ul>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb3816b8">
+<h2 id="orgb3816b8">Syntax</h2>
+<center>
+
+<p>
+<code>1 + 2</code> &nbsp; &nbsp; vs &nbsp; &nbsp; <code>(+ 1 2)</code>
+</p>
+
+<p>
+<br />
+</p>
+
+<p>
+<code>3 * 2 + 2</code> &nbsp; &nbsp; vs &nbsp; &nbsp; <code>(+ (* 3 2) 2)</code>
+</p>
+
+<p>
+<br />
+</p>
+
+<p>
+<code>my_fun(1, 2, 3)</code> &nbsp; &nbsp; vs &nbsp; &nbsp; <code>(my-fun 1 2 3)</code>
+</p>
+
+</center>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org18b4b98">
+<h2 id="org18b4b98">Timing</h2>
+<p>
+Java?
+</p>
+
+<p>
+<a href="https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java">https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #66D9EF; font-style: italic;">long</span> <span style="color: #F8F8F2;">startTime</span> = System.currentTimeMillis();
+
+doReallyLongThing();
+
+<span style="color: #66D9EF; font-style: italic;">long</span> <span style="color: #F8F8F2;">endTime</span> = System.currentTimeMillis();
+
+System.out.println(<span style="color: #E6DB74;">"Needed "</span> + (endTime - startTime) + <span style="color: #E6DB74;">" ms."</span>);
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org6bfd116">
+<h2 id="org6bfd116">Timing</h2>
+<p>
+Clojure?
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #F92660;">let</span> [before (<span style="color: #66D9EF; font-style: italic;">System</span>/currentTimeMillis)
+      calc   (do-something)
+      after  (<span style="color: #66D9EF; font-style: italic;">System</span>/currentTimeMillis)]
+  (println <span style="color: #E6DB74;">"Needed "</span> (- after before) <span style="color: #E6DB74;">" ms."</span>))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org6b4a37d">
+<h2 id="org6b4a37d">Timing</h2>
+<p>
+Clojure?
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #F92660;">let</span> [before (<span style="color: #66D9EF; font-style: italic;">System</span>/currentTimeMillis)
+      calc   (do-something)
+      after  (<span style="color: #66D9EF; font-style: italic;">System</span>/currentTimeMillis)]
+  (println <span style="color: #E6DB74;">"Needed "</span> (- after before) <span style="color: #E6DB74;">" ms."</span>))
+</pre>
+</div>
+
+<p>
+<br />
+</p>
+
+<p>
+Zu viel Handarbeit!
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org27c0f94">
+<h2 id="org27c0f94">Timing</h2>
+<p>
+Live-Coding
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc4c1886">
+<h2 id="orgc4c1886">vorhandene Typsysteme</h2>
+<p>
+<code>prismatic/schema</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #66D9EF; font-style: italic;">s</span>/<span style="color: #F92660;">defn</span> <span style="color: #A6E22E;">foo</span> <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Num
+  [x <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Int
+   y <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Num]
+  (* x y))
+</pre>
+</div>
+
+<aside class="notes">
+<ul>
+<li>Es gibt schon Libraries für Typsysteme, die bekanntesten sind Typed Clojure,
+Clojure Spec und Schema. Sie haben alle drei ein etwas anderes
+Anwendungsgebiet:
+<ul>
+<li>spec und schema: runtime check, ähnlich zu Contracts</li>
+
+</ul></li>
+
+</ul>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-org6c484f6">
+<h2 id="org6c484f6">vorhandene Typsysteme</h2>
+<p>
+<code>clojure.spec</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #66D9EF; font-style: italic;">s</span>/<span style="color: #F92660;">defn</span> <span style="color: #A6E22E;">foo</span> <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Num
+  [x <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Int
+   y <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Num]
+  (* x y))
+</pre>
+</div>
+
+<p>
+<br />
+</p>
+
+<p>
+und Typed Clojure
+</p>
+
+<aside class="notes">
+<ul>
+<li>Typed Clojure: Static Type analysis (zur Compile-Zeit)</li>
+
+</ul>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-org9cfcd71">
+<h2 id="org9cfcd71">Concurrency</h2>
+<ul>
+<li>core.async</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org2e92314">
+<h2 id="org2e92314">DSLs</h2>
+<p>
+Ausgedachtes Beispiel
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(do-db put <span style="color: #9C91E4; font-weight: bold;">1</span> {<span style="color: #9C91E4;">:name</span> <span style="color: #E6DB74;">"Kaan"</span> <span style="color: #9C91E4;">:abc</span> <span style="color: #9C91E4; font-weight: bold;">5</span>}
+       put <span style="color: #9C91E4; font-weight: bold;">2</span> {<span style="color: #9C91E4;">:name</span> <span style="color: #E6DB74;">"Johannes"</span> <span style="color: #9C91E4;">:abc</span> <span style="color: #9C91E4; font-weight: bold;">7</span>}
+       get-all where <span style="color: #9C91E4;">:abc</span> &gt; <span style="color: #9C91E4; font-weight: bold;">5</span>)
+
+--&gt; 
+
+{<span style="color: #9C91E4; font-weight: bold;">2</span> {<span style="color: #9C91E4;">:name</span> <span style="color: #E6DB74;">"Johannes"</span> <span style="color: #9C91E4;">:abc</span> <span style="color: #9C91E4; font-weight: bold;">7</span>}} 
+</pre>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="file:///home/kaan/tmp/reveal.js/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: false,
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // see README of reveal.js for options
+transitionSpeed: 'default',
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+ { src: 'file:///home/kaan/tmp/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+
+});
+</script>
+</body>
+</html>

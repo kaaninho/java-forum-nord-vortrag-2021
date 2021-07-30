@@ -1,0 +1,205 @@
+#+title: Mach Deine eigene Programmiersprache!
+#+author: Kaan Sahin, Active Group GmbH
+#+REVEAL_PLUGINS: (notes)
+#+REVEAL_THEME: active
+#+REVEAL_ROOT: file:///home/kaan/tmp/reveal.js
+#+REVEAL_HLEVEL: 100
+#+REVEAL_TRANS: none
+#+OPTIONS: num:nil toc:nil reveal-center:f reveal_slide_number:nil reveal_title_slide:nil
+#+MACRO: newline   src_emacs-lisp[:results raw]{"\n "}
+#+MACRO: TIKZ-IMG #+HEADER: :exports results :file $1 :imagemagick yes {{{newline}}} #+HEADER: :results raw {{{newline}}} #+HEADER: :headers '("\usepackage{tikz}") {{{newline}}} #+HEADER: :fit yes :imoutoptions -geometry $2 :iminoptions -density 600
+
+* Mach Deine eigene Programmiersprache!
+
+#+attr_html: :width 400px
+[[file:images/drawing-hands.jpg]]
+
+
+Kaan Sahin, Active Group GmbH
+
+
+* Motivation -- Pattern Matching
+
+Elixir
+
+#+begin_src elixir
+  def fun(["Hi", name]), do: "What's up, " <> name <> "?"
+  def fun(["Hi", name, last_name]), do: "Hey, " <> name <> " " <> last_name
+  def fun(lis), do: "something else"
+
+case {1, 2, 3} do
+  {1, 2, 4} -> "this won't match"
+  {1, 2, x} -> x
+  _         -> "if nothing else matches"
+end
+#+end_src
+
+* Motivation -- List Comprehensions
+
+Haskell TODO: schlechtes Highlighting
+
+#+begin_src haskell
+[x | x <- [1, 2, 3, 4], x > 2]
+#+end_src
+
+\\ 
+
+Python
+
+#+begin_src python
+[x for x in range(20) if x % 2 == 0]
+#+end_src
+
+
+* Motivation
+
+Weitere Schreiberleichterung: 
+
+- Getter-/Setter-Funktionen
+- Wiederkehrende Definitionen / Umständlichkeiten
+
+Spracherweiterung:
+
+- Concurrency-Modell
+- DSLs
+- Static Typesystem
+- . . .
+
+* Clojure
+
+- Lisp-Dialekt
+- Läuft auf der JVM
+- ermutigt funktionale Programmierung
+
+\\
+\\
+
+/auch schön: Racket/
+
+#+BEGIN_NOTES
+- JVM: etablierte, anerkannte Umgebung
+- funktional: immutable data & first-class functions
+#+END_NOTES
+
+* Syntax
+
+#+REVEAL_HTML: <center>
+
+=1 + 2= \nbsp{} \nbsp{} vs \nbsp{} \nbsp{} =(+ 1 2)=
+
+\\ 
+
+=3 * 2 + 2= \nbsp{} \nbsp{} vs \nbsp{} \nbsp{} =(+ (* 3 2) 2)=
+
+\\
+
+=my_fun(1, 2, 3)= \nbsp{} \nbsp{} vs \nbsp{} \nbsp{} =(my-fun 1 2 3)=
+
+#+REVEAL_HTML: </center>
+
+
+* Timing
+
+Java?
+
+https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java
+
+#+begin_src java
+long startTime = System.currentTimeMillis();
+
+doReallyLongThing();
+
+long endTime = System.currentTimeMillis();
+
+System.out.println("Needed " + (endTime - startTime) + " ms.");
+#+end_src
+
+* Timing
+
+Clojure?
+
+#+begin_src clojure
+(let [before (System/currentTimeMillis)
+      calc   (do-something)
+      after  (System/currentTimeMillis)]
+  (println "Needed " (- after before) " ms."))
+#+end_src
+
+* Timing
+
+Clojure?
+
+#+begin_src clojure
+(let [before (System/currentTimeMillis)
+      calc   (do-something)
+      after  (System/currentTimeMillis)]
+  (println "Needed " (- after before) " ms."))
+#+end_src
+
+\\
+
+Zu viel Handarbeit!
+
+* Timing
+
+Live-Coding
+
+* vorhandene Typsysteme
+
+=prismatic/schema=
+
+#+begin_src clojure
+(s/defn foo :- s/Num
+  [x :- s/Int
+   y :- s/Num]
+  (* x y))
+#+end_src
+
+#+BEGIN_NOTES
+- Es gibt schon Libraries für Typsysteme, die bekanntesten sind Typed Clojure,
+  Clojure Spec und Schema. Sie haben alle drei ein etwas anderes
+  Anwendungsgebiet:
+  - spec und schema: runtime check, ähnlich zu Contracts
+
+#+END_NOTES
+
+* vorhandene Typsysteme
+
+=clojure.spec=
+
+#+begin_src clojure
+(s/defn foo :- s/Num
+  [x :- s/Int
+   y :- s/Num]
+  (* x y))
+#+end_src
+
+\\
+
+und Typed Clojure
+
+#+begin_notes
+- Typed Clojure: Static Type analysis (zur Compile-Zeit)
+#+end_notes
+
+* Concurrency
+
+- core.async
+
+#+begin_src clojure
+
+#+end_src
+
+* DSLs
+
+Ausgedachtes Beispiel
+
+#+begin_src clojure
+(do-db put 1 {:name "Kaan" :abc 5}
+       put 2 {:name "Johannes" :abc 7}
+       get-all where :abc > 5)
+
+--> 
+
+{2 {:name "Johannes" :abc 7}} 
+#+end_src

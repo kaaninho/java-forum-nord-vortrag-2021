@@ -9,10 +9,10 @@ Zu jeder vollen Stunde ein Talk. Nach Talk 10 Minuten Pause.
 
 * Gliederung
 
-- 10 Minuten Einführung in Clojure
-- 15 Minuten Einführung in Makros (mit Mini-Syntax-Erleichterungs-Beispielen wie
+- 5 Minuten Einführung in Clojure
+- 10 Minuten Einführung in Makros (mit Mini-Syntax-Erleichterungs-Beispielen wie
   z. B. =when= oder Threading-Operator)
-- 20 Minuten nützliche Makros selbst programmieren 
+- 30 Minuten nützliche Makros selbst programmieren 
 
 
 * Ideen für nützliche Makros
@@ -21,3 +21,44 @@ Zu jeder vollen Stunde ein Talk. Nach Talk 10 Minuten Pause.
 - active-records: Vllt. zu uninteressant, bzw. zu wenig "eigene Sprache"?
 - "typed clojure": Zu umfrangreich? Zu viele Fallstricke?
 
+
+
+* Timing
+
+Motivation: Möchte schauen, wie lang ein Funktionsaufruf braucht.
+
+** Java
+
+Let's google it:
+
+https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java
+
+#+begin_src java
+long startTime = System.currentTimeMillis();
+
+doReallyLongThing();
+
+long endTime = System.currentTimeMillis();
+
+System.out.println("Needed " + (endTime - startTime) + " ms.");
+#+end_src
+
+** Clojure
+
+Let's build it!
+
+#+begin_src clojure
+(let [before (System/currentTimeMillis)
+      calc   (do-something)
+      after  (System/currentTimeMillis)]
+  (println "Needed " (- after before) " ms."))
+#+end_src
+
+
+
+
+* vorhandene Libraries / schon eingebaut
+
+Differences between =clojure.typed=, =clojure.spec=, =prismatic/schema=
+
+https://stackoverflow.com/questions/46581570/clojure-spec-vs-typed-vs-schema/46585203 
