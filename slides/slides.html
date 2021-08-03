@@ -26,14 +26,14 @@
 <div class="reveal">
 <div class="slides">
 <section id="sec-title-slide">
-<h1 class="title">Mach Deine eigene Programmiersprache!</h1><h2 class="author">Kaan Sahin, Active Group GmbH</h2><p class="date">Created: 2021-07-30 Fr 14:54</p>
+<h1 class="title">Mach Deine eigene Programmiersprache!</h1><h2 class="author">Kaan Sahin, Active Group GmbH</h2><p class="date">Created: 2021-08-02 Mo 11:31</p>
 </section>
 
 <section>
-<section id="slide-org23df844">
-<h2 id="org23df844">Mach Deine eigene Programmiersprache!</h2>
+<section id="slide-orgf8ee8a5">
+<h2 id="orgf8ee8a5">Mach Deine eigene Programmiersprache!</h2>
 
-<div id="org042cad8" class="figure">
+<div id="org796cced" class="figure">
 <p><img src="images/drawing-hands.jpg" alt="drawing-hands.jpg" width="400px" />
 </p>
 </div>
@@ -47,8 +47,8 @@ Kaan Sahin, Active Group GmbH
 </section>
 </section>
 <section>
-<section id="slide-orgae47fb2">
-<h2 id="orgae47fb2">Motivation &#x2013; Pattern Matching</h2>
+<section id="slide-org265f852">
+<h2 id="org265f852">Motivation &#x2013; Pattern Matching</h2>
 <p>
 Elixir
 </p>
@@ -70,8 +70,8 @@ Elixir
 </section>
 </section>
 <section>
-<section id="slide-org5470203">
-<h2 id="org5470203">Motivation &#x2013; List Comprehensions</h2>
+<section id="slide-org112168d">
+<h2 id="org112168d">Motivation &#x2013; List Comprehensions</h2>
 <p>
 Haskell TODO: schlechtes Highlighting
 </p>
@@ -100,8 +100,8 @@ Python
 </section>
 </section>
 <section>
-<section id="slide-orgc6ee419">
-<h2 id="orgc6ee419">Motivation</h2>
+<section id="slide-org2580240">
+<h2 id="org2580240">Motivation</h2>
 <p>
 Weitere Schreiberleichterung: 
 </p>
@@ -127,8 +127,8 @@ Spracherweiterung:
 </section>
 </section>
 <section>
-<section id="slide-orgb1f856b">
-<h2 id="orgb1f856b">Clojure</h2>
+<section id="slide-org4fa47e2">
+<h2 id="org4fa47e2">Clojure</h2>
 <ul>
 <li>Lisp-Dialekt</li>
 <li>Läuft auf der JVM</li>
@@ -157,8 +157,8 @@ Spracherweiterung:
 </section>
 </section>
 <section>
-<section id="slide-orgb3816b8">
-<h2 id="orgb3816b8">Syntax</h2>
+<section id="slide-org94ec1f8">
+<h2 id="org94ec1f8">Syntax</h2>
 <center>
 
 <p>
@@ -187,8 +187,8 @@ Spracherweiterung:
 </section>
 </section>
 <section>
-<section id="slide-org18b4b98">
-<h2 id="org18b4b98">Timing</h2>
+<section id="slide-orgfad6ce7">
+<h2 id="orgfad6ce7">Timing</h2>
 <p>
 Java?
 </p>
@@ -212,8 +212,8 @@ System.out.println(<span style="color: #E6DB74;">"Needed "</span> + (endTime - s
 </section>
 </section>
 <section>
-<section id="slide-org6bfd116">
-<h2 id="org6bfd116">Timing</h2>
+<section id="slide-orgdcd3918">
+<h2 id="orgdcd3918">Timing</h2>
 <p>
 Clojure?
 </p>
@@ -230,8 +230,8 @@ Clojure?
 </section>
 </section>
 <section>
-<section id="slide-org6b4a37d">
-<h2 id="org6b4a37d">Timing</h2>
+<section id="slide-orgf6f83b2">
+<h2 id="orgf6f83b2">Timing</h2>
 <p>
 Clojure?
 </p>
@@ -256,8 +256,8 @@ Zu viel Handarbeit!
 </section>
 </section>
 <section>
-<section id="slide-org27c0f94">
-<h2 id="org27c0f94">Timing</h2>
+<section id="slide-orga2c4c24">
+<h2 id="orga2c4c24">Timing</h2>
 <p>
 Live-Coding
 </p>
@@ -265,8 +265,8 @@ Live-Coding
 </section>
 </section>
 <section>
-<section id="slide-orgc4c1886">
-<h2 id="orgc4c1886">vorhandene Typsysteme</h2>
+<section id="slide-orga2e8263">
+<h2 id="orga2e8263">vorhandene Typsysteme</h2>
 <p>
 <code>prismatic/schema</code>
 </p>
@@ -297,17 +297,21 @@ Anwendungsgebiet:
 </section>
 </section>
 <section>
-<section id="slide-org6c484f6">
-<h2 id="org6c484f6">vorhandene Typsysteme</h2>
+<section id="slide-org01a35c3">
+<h2 id="org01a35c3">vorhandene Typsysteme</h2>
 <p>
 <code>clojure.spec</code>
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-clojure">(<span style="color: #66D9EF; font-style: italic;">s</span>/<span style="color: #F92660;">defn</span> <span style="color: #A6E22E;">foo</span> <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Num
-  [x <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Int
-   y <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Num]
+<pre class="src src-clojure">(<span style="color: #66D9EF; font-style: italic;">s</span>/fdef foo
+  <span style="color: #9C91E4;">:args</span> (<span style="color: #66D9EF; font-style: italic;">s</span>/and (<span style="color: #66D9EF; font-style: italic;">s</span>/cat <span style="color: #9C91E4;">:x</span> int? <span style="color: #9C91E4;">:y</span> int?)
+               #(&gt; (<span style="color: #9C91E4;">:x</span> <span style="color: #F8F8F2;">%</span>) <span style="color: #9C91E4; font-weight: bold;">0</span>))
+  <span style="color: #9C91E4;">:ret</span> int?)
+
+(<span style="color: #F92660;">defn</span> <span style="color: #A6E22E;">foo</span>
+  [x y]
   (* x y))
 </pre>
 </div>
@@ -331,8 +335,8 @@ und Typed Clojure
 </section>
 </section>
 <section>
-<section id="slide-org9cfcd71">
-<h2 id="org9cfcd71">Concurrency</h2>
+<section id="slide-orgddd2002">
+<h2 id="orgddd2002">Concurrency</h2>
 <ul>
 <li>core.async</li>
 
@@ -347,8 +351,8 @@ und Typed Clojure
 </section>
 </section>
 <section>
-<section id="slide-org2e92314">
-<h2 id="org2e92314">DSLs</h2>
+<section id="slide-orga50d2a1">
+<h2 id="orga50d2a1">DSLs</h2>
 <p>
 Ausgedachtes Beispiel
 </p>
