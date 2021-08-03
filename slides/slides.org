@@ -120,7 +120,7 @@ Clojure?
 
 #+begin_src clojure
 (let [before (System/currentTimeMillis)
-      calc   (do-something)
+      result (do-something)
       after  (System/currentTimeMillis)]
   (println "Needed " (- after before) " ms."))
 #+end_src
@@ -131,7 +131,7 @@ Clojure?
 
 #+begin_src clojure
 (let [before (System/currentTimeMillis)
-      calc   (do-something)
+      result (do-something)
       after  (System/currentTimeMillis)]
   (println "Needed " (- after before) " ms."))
 #+end_src

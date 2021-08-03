@@ -14,13 +14,11 @@ Zu jeder vollen Stunde ein Talk. Nach Talk 10 Minuten Pause.
   z. B. =when= oder Threading-Operator)
 - 30 Minuten nützliche Makros selbst programmieren 
 
-
 * Ideen für nützliche Makros
 
 - =time=-Makro als erstes kleines Beispiel (wird schon für Staunen sorgen!)
 - active-records: Vllt. zu uninteressant, bzw. zu wenig "eigene Sprache"?
 - "typed clojure": Zu umfrangreich? Zu viele Fallstricke?
-
 
 
 * Timing

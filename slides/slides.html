@@ -26,14 +26,14 @@
 <div class="reveal">
 <div class="slides">
 <section id="sec-title-slide">
-<h1 class="title">Mach Deine eigene Programmiersprache!</h1><h2 class="author">Kaan Sahin, Active Group GmbH</h2><p class="date">Created: 2021-08-02 Mo 11:31</p>
+<h1 class="title">Mach Deine eigene Programmiersprache!</h1><h2 class="author">Kaan Sahin, Active Group GmbH</h2><p class="date">Created: 2021-08-03 Di 14:17</p>
 </section>
 
 <section>
-<section id="slide-orgf8ee8a5">
-<h2 id="orgf8ee8a5">Mach Deine eigene Programmiersprache!</h2>
+<section id="slide-org3da38c5">
+<h2 id="org3da38c5">Mach Deine eigene Programmiersprache!</h2>
 
-<div id="org796cced" class="figure">
+<div id="orgedfb98d" class="figure">
 <p><img src="images/drawing-hands.jpg" alt="drawing-hands.jpg" width="400px" />
 </p>
 </div>
@@ -47,38 +47,38 @@ Kaan Sahin, Active Group GmbH
 </section>
 </section>
 <section>
-<section id="slide-org265f852">
-<h2 id="org265f852">Motivation &#x2013; Pattern Matching</h2>
+<section id="slide-orge332712">
+<h2 id="orge332712">Motivation &#x2013; Pattern Matching</h2>
 <p>
 Elixir
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-elixir">  <span style="color: #F92660;">def</span> <span style="color: #A6E22E;">fun</span>([<span style="color: #E6DB74;">"Hi"</span>, name]), <span style="color: #66D9EF;">do:</span> <span style="color: #E6DB74;">"What's up, "</span> &lt;&gt; name &lt;&gt; <span style="color: #E6DB74;">"?"</span>
-  <span style="color: #F92660;">def</span> <span style="color: #A6E22E;">fun</span>([<span style="color: #E6DB74;">"Hi"</span>, name, last_name]), <span style="color: #66D9EF;">do:</span> <span style="color: #E6DB74;">"Hey, "</span> &lt;&gt; name &lt;&gt; <span style="color: #E6DB74;">" "</span> &lt;&gt; last_name
-  <span style="color: #F92660;">def</span> <span style="color: #A6E22E;">fun</span>(lis), <span style="color: #66D9EF;">do:</span> <span style="color: #E6DB74;">"something else"</span>
+<pre class="src src-elixir">  <span style="color: #e45649; font-weight: bold;">def</span> <span style="color: #a626a4;">fun</span>([<span style="color: #50a14f;">"Hi"</span>, name]), <span style="color: #a0bcf8;">do:</span> <span style="color: #50a14f;">"What's up, "</span> &lt;&gt; name &lt;&gt; <span style="color: #50a14f;">"?"</span>
+  <span style="color: #e45649; font-weight: bold;">def</span> <span style="color: #a626a4;">fun</span>([<span style="color: #50a14f;">"Hi"</span>, name, last_name]), <span style="color: #a0bcf8;">do:</span> <span style="color: #50a14f;">"Hey, "</span> &lt;&gt; name &lt;&gt; <span style="color: #50a14f;">" "</span> &lt;&gt; last_name
+  <span style="color: #e45649; font-weight: bold;">def</span> <span style="color: #a626a4;">fun</span>(lis), <span style="color: #a0bcf8;">do:</span> <span style="color: #50a14f;">"something else"</span>
 
-<span style="color: #F92660;">case</span> {<span style="color: #9C91E4; font-weight: bold;">1</span>, <span style="color: #9C91E4; font-weight: bold;">2</span>, <span style="color: #9C91E4; font-weight: bold;">3</span>} <span style="color: #F92660;">do</span>
-  {<span style="color: #9C91E4; font-weight: bold;">1</span>, <span style="color: #9C91E4; font-weight: bold;">2</span>, <span style="color: #9C91E4; font-weight: bold;">4</span>} -&gt; <span style="color: #E6DB74;">"this won't match"</span>
-  {<span style="color: #9C91E4; font-weight: bold;">1</span>, <span style="color: #9C91E4; font-weight: bold;">2</span>, x} -&gt; x
-  <span style="color: #9C91E4;">_</span>         -&gt; <span style="color: #E6DB74;">"if nothing else matches"</span>
-<span style="color: #F92660;">end</span>
+<span style="color: #e45649; font-weight: bold;">case</span> {<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">2</span>, <span style="color: #da8548; font-weight: bold;">3</span>} <span style="color: #e45649; font-weight: bold;">do</span>
+  {<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">2</span>, <span style="color: #da8548; font-weight: bold;">4</span>} -&gt; <span style="color: #50a14f;">"this won't match"</span>
+  {<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">2</span>, x} -&gt; x
+  <span style="color: #b751b6;">_</span>         -&gt; <span style="color: #50a14f;">"if nothing else matches"</span>
+<span style="color: #e45649; font-weight: bold;">end</span>
 </pre>
 </div>
 
 </section>
 </section>
 <section>
-<section id="slide-org112168d">
-<h2 id="org112168d">Motivation &#x2013; List Comprehensions</h2>
+<section id="slide-org8ec1262">
+<h2 id="org8ec1262">Motivation &#x2013; List Comprehensions</h2>
 <p>
 Haskell TODO: schlechtes Highlighting
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-haskell">[x <span style="color: #F8F8F2;">|</span> x <span style="color: #F8F8F2;">&lt;-</span> [<span style="color: #9C91E4; font-weight: bold;">1</span>, <span style="color: #9C91E4; font-weight: bold;">2</span>, <span style="color: #9C91E4; font-weight: bold;">3</span>, <span style="color: #9C91E4; font-weight: bold;">4</span>], x <span style="color: #F8F8F2;">&gt;</span> <span style="color: #9C91E4; font-weight: bold;">2</span>]
+<pre class="src src-haskell">[x <span style="color: #6a1868;">|</span> x <span style="color: #6a1868;">&lt;-</span> [<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">2</span>, <span style="color: #da8548; font-weight: bold;">3</span>, <span style="color: #da8548; font-weight: bold;">4</span>], x <span style="color: #6a1868;">&gt;</span> <span style="color: #da8548; font-weight: bold;">2</span>]
 </pre>
 </div>
 
@@ -92,7 +92,7 @@ Python
 
 <div class="org-src-container">
 
-<pre class="src src-python">[x <span style="color: #F92660;">for</span> x <span style="color: #F92660;">in</span> <span style="color: #FD971F;">range</span>(<span style="color: #9C91E4; font-weight: bold;">20</span>) <span style="color: #F92660;">if</span> x % <span style="color: #9C91E4; font-weight: bold;">2</span> == <span style="color: #9C91E4; font-weight: bold;">0</span>]
+<pre class="src src-python">[x <span style="color: #e45649; font-weight: bold;">for</span> x <span style="color: #e45649; font-weight: bold;">in</span> <span style="color: #a626a4; font-weight: bold;">range</span>(<span style="color: #da8548; font-weight: bold;">20</span>) <span style="color: #e45649; font-weight: bold;">if</span> x % <span style="color: #da8548; font-weight: bold;">2</span> == <span style="color: #da8548; font-weight: bold;">0</span>]
 </pre>
 </div>
 
@@ -100,8 +100,8 @@ Python
 </section>
 </section>
 <section>
-<section id="slide-org2580240">
-<h2 id="org2580240">Motivation</h2>
+<section id="slide-org057cbec">
+<h2 id="org057cbec">Motivation</h2>
 <p>
 Weitere Schreiberleichterung: 
 </p>
@@ -127,8 +127,8 @@ Spracherweiterung:
 </section>
 </section>
 <section>
-<section id="slide-org4fa47e2">
-<h2 id="org4fa47e2">Clojure</h2>
+<section id="slide-orgaa68bf6">
+<h2 id="orgaa68bf6">Clojure</h2>
 <ul>
 <li>Lisp-Dialekt</li>
 <li>Läuft auf der JVM</li>
@@ -157,8 +157,8 @@ Spracherweiterung:
 </section>
 </section>
 <section>
-<section id="slide-org94ec1f8">
-<h2 id="org94ec1f8">Syntax</h2>
+<section id="slide-orgc9135e7">
+<h2 id="orgc9135e7">Syntax</h2>
 <center>
 
 <p>
@@ -187,8 +187,8 @@ Spracherweiterung:
 </section>
 </section>
 <section>
-<section id="slide-orgfad6ce7">
-<h2 id="orgfad6ce7">Timing</h2>
+<section id="slide-org38b040d">
+<h2 id="org38b040d">Timing</h2>
 <p>
 Java?
 </p>
@@ -199,49 +199,49 @@ Java?
 
 <div class="org-src-container">
 
-<pre class="src src-java"><span style="color: #66D9EF; font-style: italic;">long</span> <span style="color: #F8F8F2;">startTime</span> = System.currentTimeMillis();
+<pre class="src src-java"><span style="color: #986801; font-style: italic;">long</span> <span style="color: #6a1868;">startTime</span> = System.currentTimeMillis();
 
 doReallyLongThing();
 
-<span style="color: #66D9EF; font-style: italic;">long</span> <span style="color: #F8F8F2;">endTime</span> = System.currentTimeMillis();
+<span style="color: #986801; font-style: italic;">long</span> <span style="color: #6a1868;">endTime</span> = System.currentTimeMillis();
 
-System.out.println(<span style="color: #E6DB74;">"Needed "</span> + (endTime - startTime) + <span style="color: #E6DB74;">" ms."</span>);
+System.out.println(<span style="color: #50a14f;">"Needed "</span> + (endTime - startTime) + <span style="color: #50a14f;">" ms."</span>);
 </pre>
 </div>
 
 </section>
 </section>
 <section>
-<section id="slide-orgdcd3918">
-<h2 id="orgdcd3918">Timing</h2>
+<section id="slide-org8421d5c">
+<h2 id="org8421d5c">Timing</h2>
 <p>
 Clojure?
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-clojure">(<span style="color: #F92660;">let</span> [before (<span style="color: #66D9EF; font-style: italic;">System</span>/currentTimeMillis)
+<pre class="src src-clojure">(<span style="color: #e45649; font-weight: bold;">let</span> [before (<span style="color: #986801; font-style: italic;">System</span>/currentTimeMillis)
       calc   (do-something)
-      after  (<span style="color: #66D9EF; font-style: italic;">System</span>/currentTimeMillis)]
-  (println <span style="color: #E6DB74;">"Needed "</span> (- after before) <span style="color: #E6DB74;">" ms."</span>))
+      after  (<span style="color: #986801; font-style: italic;">System</span>/currentTimeMillis)]
+  (println <span style="color: #50a14f;">"Needed "</span> (- after before) <span style="color: #50a14f;">" ms."</span>))
 </pre>
 </div>
 
 </section>
 </section>
 <section>
-<section id="slide-orgf6f83b2">
-<h2 id="orgf6f83b2">Timing</h2>
+<section id="slide-orgc52ba1d">
+<h2 id="orgc52ba1d">Timing</h2>
 <p>
 Clojure?
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-clojure">(<span style="color: #F92660;">let</span> [before (<span style="color: #66D9EF; font-style: italic;">System</span>/currentTimeMillis)
+<pre class="src src-clojure">(<span style="color: #e45649; font-weight: bold;">let</span> [before (<span style="color: #986801; font-style: italic;">System</span>/currentTimeMillis)
       calc   (do-something)
-      after  (<span style="color: #66D9EF; font-style: italic;">System</span>/currentTimeMillis)]
-  (println <span style="color: #E6DB74;">"Needed "</span> (- after before) <span style="color: #E6DB74;">" ms."</span>))
+      after  (<span style="color: #986801; font-style: italic;">System</span>/currentTimeMillis)]
+  (println <span style="color: #50a14f;">"Needed "</span> (- after before) <span style="color: #50a14f;">" ms."</span>))
 </pre>
 </div>
 
@@ -256,8 +256,8 @@ Zu viel Handarbeit!
 </section>
 </section>
 <section>
-<section id="slide-orga2c4c24">
-<h2 id="orga2c4c24">Timing</h2>
+<section id="slide-orgf84a6a0">
+<h2 id="orgf84a6a0">Timing</h2>
 <p>
 Live-Coding
 </p>
@@ -265,17 +265,17 @@ Live-Coding
 </section>
 </section>
 <section>
-<section id="slide-orga2e8263">
-<h2 id="orga2e8263">vorhandene Typsysteme</h2>
+<section id="slide-orge471d72">
+<h2 id="orge471d72">vorhandene Typsysteme</h2>
 <p>
 <code>prismatic/schema</code>
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-clojure">(<span style="color: #66D9EF; font-style: italic;">s</span>/<span style="color: #F92660;">defn</span> <span style="color: #A6E22E;">foo</span> <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Num
-  [x <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Int
-   y <span style="color: #9C91E4;">:-</span> <span style="color: #66D9EF; font-style: italic;">s</span>/Num]
+<pre class="src src-clojure">(<span style="color: #986801; font-style: italic;">s</span>/<span style="color: #e45649; font-weight: bold;">defn</span> <span style="color: #a626a4;">foo</span> <span style="color: #b751b6;">:-</span> <span style="color: #986801; font-style: italic;">s</span>/Num
+  [x <span style="color: #b751b6;">:-</span> <span style="color: #986801; font-style: italic;">s</span>/Int
+   y <span style="color: #b751b6;">:-</span> <span style="color: #986801; font-style: italic;">s</span>/Num]
   (* x y))
 </pre>
 </div>
@@ -297,20 +297,20 @@ Anwendungsgebiet:
 </section>
 </section>
 <section>
-<section id="slide-org01a35c3">
-<h2 id="org01a35c3">vorhandene Typsysteme</h2>
+<section id="slide-org773b053">
+<h2 id="org773b053">vorhandene Typsysteme</h2>
 <p>
 <code>clojure.spec</code>
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-clojure">(<span style="color: #66D9EF; font-style: italic;">s</span>/fdef foo
-  <span style="color: #9C91E4;">:args</span> (<span style="color: #66D9EF; font-style: italic;">s</span>/and (<span style="color: #66D9EF; font-style: italic;">s</span>/cat <span style="color: #9C91E4;">:x</span> int? <span style="color: #9C91E4;">:y</span> int?)
-               #(&gt; (<span style="color: #9C91E4;">:x</span> <span style="color: #F8F8F2;">%</span>) <span style="color: #9C91E4; font-weight: bold;">0</span>))
-  <span style="color: #9C91E4;">:ret</span> int?)
+<pre class="src src-clojure">(<span style="color: #986801; font-style: italic;">s</span>/fdef foo
+  <span style="color: #b751b6;">:args</span> (<span style="color: #986801; font-style: italic;">s</span>/and (<span style="color: #986801; font-style: italic;">s</span>/cat <span style="color: #b751b6;">:x</span> int? <span style="color: #b751b6;">:y</span> int?)
+               #(&gt; (<span style="color: #b751b6;">:x</span> <span style="color: #6a1868;">%</span>) <span style="color: #da8548; font-weight: bold;">0</span>))
+  <span style="color: #b751b6;">:ret</span> int?)
 
-(<span style="color: #F92660;">defn</span> <span style="color: #A6E22E;">foo</span>
+(<span style="color: #e45649; font-weight: bold;">defn</span> <span style="color: #a626a4;">foo</span>
   [x y]
   (* x y))
 </pre>
@@ -335,8 +335,8 @@ und Typed Clojure
 </section>
 </section>
 <section>
-<section id="slide-orgddd2002">
-<h2 id="orgddd2002">Concurrency</h2>
+<section id="slide-org61599f3">
+<h2 id="org61599f3">Concurrency</h2>
 <ul>
 <li>core.async</li>
 
@@ -351,21 +351,21 @@ und Typed Clojure
 </section>
 </section>
 <section>
-<section id="slide-orga50d2a1">
-<h2 id="orga50d2a1">DSLs</h2>
+<section id="slide-org2086f87">
+<h2 id="org2086f87">DSLs</h2>
 <p>
 Ausgedachtes Beispiel
 </p>
 
 <div class="org-src-container">
 
-<pre class="src src-clojure">(do-db put <span style="color: #9C91E4; font-weight: bold;">1</span> {<span style="color: #9C91E4;">:name</span> <span style="color: #E6DB74;">"Kaan"</span> <span style="color: #9C91E4;">:abc</span> <span style="color: #9C91E4; font-weight: bold;">5</span>}
-       put <span style="color: #9C91E4; font-weight: bold;">2</span> {<span style="color: #9C91E4;">:name</span> <span style="color: #E6DB74;">"Johannes"</span> <span style="color: #9C91E4;">:abc</span> <span style="color: #9C91E4; font-weight: bold;">7</span>}
-       get-all where <span style="color: #9C91E4;">:abc</span> &gt; <span style="color: #9C91E4; font-weight: bold;">5</span>)
+<pre class="src src-clojure">(do-db put <span style="color: #da8548; font-weight: bold;">1</span> {<span style="color: #b751b6;">:name</span> <span style="color: #50a14f;">"Kaan"</span> <span style="color: #b751b6;">:abc</span> <span style="color: #da8548; font-weight: bold;">5</span>}
+       put <span style="color: #da8548; font-weight: bold;">2</span> {<span style="color: #b751b6;">:name</span> <span style="color: #50a14f;">"Johannes"</span> <span style="color: #b751b6;">:abc</span> <span style="color: #da8548; font-weight: bold;">7</span>}
+       get-all where <span style="color: #b751b6;">:abc</span> &gt; <span style="color: #da8548; font-weight: bold;">5</span>)
 
 --&gt; 
 
-{<span style="color: #9C91E4; font-weight: bold;">2</span> {<span style="color: #9C91E4;">:name</span> <span style="color: #E6DB74;">"Johannes"</span> <span style="color: #9C91E4;">:abc</span> <span style="color: #9C91E4; font-weight: bold;">7</span>}} 
+{<span style="color: #da8548; font-weight: bold;">2</span> {<span style="color: #b751b6;">:name</span> <span style="color: #50a14f;">"Johannes"</span> <span style="color: #b751b6;">:abc</span> <span style="color: #da8548; font-weight: bold;">7</span>}} 
 </pre>
 </div>
 </section>

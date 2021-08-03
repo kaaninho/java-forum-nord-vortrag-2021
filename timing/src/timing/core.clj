@@ -8,17 +8,17 @@
   "finished")
 
 (let [before (System/currentTimeMillis)
-      calc   (do-something)
+      result (do-something)
       after  (System/currentTimeMillis)]
   (println "ms: " (- after before))
-  calc)
+  result)
 
 
 (defmacro timing [form]
   `(let [before# (System/currentTimeMillis)
-         calc#   ~form
+         result#  ~form
          after#  (System/currentTimeMillis)]
      (println "ms: " (- after# before#))
-     calc#))
+     result#))
 
 (timing (do-something))
