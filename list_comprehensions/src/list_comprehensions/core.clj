@@ -5,6 +5,8 @@
   ;; Ziel
   ;; (lc [(* x x) for x in [1 2 3 4] where (> x 2)])
 
+  ;; erst so, dann [result _for variable _in lis _where pred] form
+
   (defmacro lc
     [form]
     (let [sym      (first form)
@@ -26,10 +28,7 @@
 
   (defmacro lc
     [form]
-    (let [sym      (first form)
-          variable (nth form 2)
-          lis      (nth form 4)
-          pred     (nth form 6)]
+    (let [[result _for variable _in lis _where pred] form]
       `(filter ~(make-pred-fn variable pred)
                ~lis))))
 
@@ -38,18 +37,15 @@
   `(fn [~sym]
      ~pred))
 
-(defn make-map-fn
-  [sym fn-form]
-  `(fn [~sym]
+(defn make-result-fn
+  [result fn-form]
+  `(fn [~result]
      ~fn-form))
 
 (defmacro lc
   [form]
-  (let [sym      (first form)
-        variable (nth form 2)
-        lis      (nth form 4)
-        pred     (nth form 6)]
-    `(map ~(make-map-fn variable sym)
+  (let [[result _for variable _in lis _where pred] form]
+    `(map ~(make-result-fn variable result)
           (filter ~(make-pred-fn variable pred)
                   ~lis))))
 
@@ -61,3 +57,5 @@
 ;; Deshalb oft: Solche Makros nicht nötig
 ;; Außer z. B. DSLs für "Fachfremde" o. ä.
 (map #(* % %) (filter #(> % 2) [1 2 3 4]))
+
+
