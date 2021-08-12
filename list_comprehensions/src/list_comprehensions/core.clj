@@ -59,3 +59,5 @@
 (map #(* % %) (filter #(> % 2) [1 2 3 4]))
 
 
+;; Zusatz ggf.: Argument Assertions
+;;   (assert (= _for 'for) "'for' not found")
