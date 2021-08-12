@@ -20,6 +20,11 @@ Zu jeder vollen Stunde ein Talk. Nach Talk 10 Minuten Pause.
 - active-records: Vllt. zu uninteressant, bzw. zu wenig "eigene Sprache"?
 - "typed clojure": Zu umfrangreich? Zu viele Fallstricke?
 
+* VOR DEM TALK
+
+- flycheck-mode ausmachen
+  - in Config clj-kondo deaktiveren? TODO: ausprobieren
+
 
 * Timing
 
