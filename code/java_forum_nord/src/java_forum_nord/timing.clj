@@ -1,6 +1,4 @@
-(ns timing.core
-  (:gen-class))
-
+(ns java-forum-nord.timing)
 
 (defn do-something
   []

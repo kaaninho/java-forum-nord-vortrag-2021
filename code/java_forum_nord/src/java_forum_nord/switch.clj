@@ -1,4 +1,4 @@
-(ns string-switch.core)
+(ns java-forum-nord.switch)
 
 (comment
   (defn prepare-statement [thing statement]

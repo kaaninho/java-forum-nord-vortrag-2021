@@ -1,4 +1,4 @@
-# list_comprehensions
+# java_forum_nord
 
 FIXME: description
 
@@ -10,7 +10,7 @@ Download from http://example.com/FIXME.
 
 FIXME: explanation
 
-    $ java -jar list_comprehensions-0.1.0-standalone.jar [args]
+    $ java -jar java_forum_nord-0.1.0-standalone.jar [args]
 
 ## Options
 

@@ -1,4 +1,4 @@
-(ns list-comprehensions.core)
+(ns java-forum-nord.list-comprehensions)
 
 (comment
 
@@ -57,7 +57,6 @@
 ;; Deshalb oft: Solche Makros nicht nötig
 ;; Außer z. B. DSLs für "Fachfremde" o. ä.
 (map #(* % %) (filter #(> % 2) [1 2 3 4]))
-
 
 ;; Zusatz ggf.: Argument Assertions
 ;;   (assert (= _for 'for) "'for' not found")
