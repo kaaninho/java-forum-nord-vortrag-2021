@@ -54,3 +54,10 @@
                   ~lis))))
 
 (lc [(* x x) for x in [1 2 3 4] where (> x 2)])
+
+
+;; Aber: "normaler Weg" sogar kürzer bzgl. Zeichen und für funktionale
+;; Programmierinnen sehr gut lesbar
+;; Deshalb oft: Solche Makros nicht nötig
+;; Außer z. B. DSLs für "Fachfremde" o. ä.
+(map #(* % %) (filter #(> % 2) [1 2 3 4]))

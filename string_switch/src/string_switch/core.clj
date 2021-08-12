@@ -18,7 +18,8 @@
   (let [y "Work"]
     (switch y
             ("Holiday" "I am not around")
-            ( "Work" "How can I help?"))))
+            ("Work" "How can I help?")
+            ("Night" "zzZZzzzzZZ"))))
 
 
 (comment
@@ -44,7 +45,8 @@
   (let [y "Work"]
     (switch y
             (case "Holiday" -> "I am not around")
-            (case "Work" -> "How can I help?"))))
+            (case "Work" -> "How can I help?")
+            (case "Night" -> "zzZZzzzzZZ"))))
 
 
 
