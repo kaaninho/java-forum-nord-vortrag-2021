@@ -62,43 +62,52 @@ Spracherweiterung:
 
 - Concurrency-Modell
 - DSLs
-- Static Typesystem
+- Statisches Typesystem
 - . . .
 
-* Clojure
+* Clojure -- Übersicht
 
 - Lisp-Dialekt
-- Läuft auf der JVM
+- kompiliert zu JVM-Bytecode
+- Interop mit Java
 - ermutigt funktionale Programmierung
-
-\\
-\\
-
-/auch schön: Racket/
+- unveränderbare Datenstrukturen
+- besonderen Akzent auf Nebenläufigkeit
 
 #+BEGIN_NOTES
 - JVM: etablierte, anerkannte Umgebung
 - funktional: immutable data & first-class functions
 #+END_NOTES
 
-* Syntax
+* Clojure -- Syntax
 
 #+REVEAL_HTML: <center>
 
-=1 + 2= \nbsp{} \nbsp{} vs \nbsp{} \nbsp{} =(+ 1 2)=
+- Zwei Arten von Ausdrücken:
+  - Atomare Ausdrücke: =17=, ="hallo"=, =sym=, =false=
+  - Listen: =(or false (> 2 1))=
 
-\\ 
+#+BEGIN_NOTES
+- Ausdrücke werden evaluiert / ausgewertet zu Werten
+- Ein Ausdruck mit Klammern ist meistens ein Funktionsaufruf
+- Heute wird es aber oft was anderes sein, ein Makro oder eine special form
+- In Clojure gibt es noch drei weitere Arten von collection types: Vektoren,
+  Maps und Mengen
+#+END_NOTES
 
-=3 * 2 + 2= \nbsp{} \nbsp{} vs \nbsp{} \nbsp{} =(+ (* 3 2) 2)=
+* Clojure -- Syntax, Definitionen
 
-\\
+Live-Coding und REPL
 
-=my_fun(1, 2, 3)= \nbsp{} \nbsp{} vs \nbsp{} \nbsp{} =(my-fun 1 2 3)=
+#+begin_notes clojure
+- Benutze =C-c M-p= (insert-last-sexpr in REPL)
+#+end_notes
 
-#+REVEAL_HTML: </center>
+* Makros
 
+Makros 
 
-* Timing
+* Method Timing
 
 Java?
 
@@ -114,7 +123,7 @@ long endTime = System.currentTimeMillis();
 System.out.println("Needed " + (endTime - startTime) + " ms.");
 #+end_src
 
-* Timing
+* Method Timing
 
 Clojure?
 
@@ -125,7 +134,7 @@ Clojure?
   (println "Needed " (- after before) " ms."))
 #+end_src
 
-* Timing
+* Method Timing
 
 Clojure?
 
@@ -140,7 +149,7 @@ Clojure?
 
 Zu viel Handarbeit!
 
-* Timing
+* Method Timing
 
 Live-Coding
 
