@@ -7,6 +7,8 @@
 
   ;; erst so, dann [result _for variable _in lis _where pred] form
 
+  ;; Zuerst: nur die Liste zurückgeben
+
   (defmacro lc
     [form]
     (let [sym      (first form)
@@ -17,7 +19,7 @@
 
 
 (comment
-  ;; Ziel
+  ;; Ziel: mit Prädikat
   ;; (lc [x for x in [1 2 3 4] where (> x 2)])
 
 

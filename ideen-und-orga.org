@@ -58,6 +58,64 @@ Let's build it!
 #+end_src
 
 
+* Makros
+
+von https://aphyr.com/posts/305-clojure-from-the-ground-up-macros
+
+
+Across languages 
+
+Some languages have a metalanguage: a language for extending
+the language itself. In C, for example, macros are implemented by the C
+preprocessor, which has its own syntax for defining expressions, matching
+patterns in the source code’s text, and replacing that text with other text. But
+that preprocessor is not C–it is a separate language entirely, with special
+limitations. In Clojure, the metalanguage is Clojure itself–the full power of
+the language is available to restructure programs. This is called a procedural
+macro system. Some Lisps, like Scheme, use a macro system based on templating
+expressions, and still others use more powerful models like f-expressions–but
+that’s a discussion for a later time.
+
+There is another key difference between Lisp macros and many other macro
+systems: in Lisp, the macros operate on expressions: the data structure of the
+code itself. Because Lisp code is written explicitly as a data structure, a tree
+made out of lists, this transformation is natural. You can see the structure of
+the code, which makes it easy to reason about its transformation. In the C
+preprocessor, macros operate only on text: there is no understanding of the
+underlying syntax. Even in languages like Scala which have syntactic macros, the
+fact that the code looks nothing like the syntax tree makes it cumbersome to
+truly restructure expressions.
+
+When people say that Lisp’s syntax is “more elegant”, or “more beautiful”, or
+“simpler”, this is part of what they they mean. By choosing to represent the
+program directly as a a data structure, we make it much easier to define complex
+transformations of code itself.
+
+* String switch
+
+Mit Docker eine Umgebung bauen, die JDK-6 zur Verfügung stellt:
+
+#+begin_src bash
+docker run -it --mount type=bind,src=/home/kaan/active-group/vortraege/,dst=/flam openjdk:6-jdk
+#+end_src
+
+Und dort drin dann:
+
+#+begin_src java
+javac Main.java && java Main
+#+end_src
+
+Gibt Fehlermeldung:
+
+#+begin_quote
+Main.java:12: incompatible types
+found   : java.lang.String
+required: int
+    switch (dayOfWeekArg) {
+            ^
+1 error
+#+end_quote
+
 
 
 * vorhandene Libraries / schon eingebaut

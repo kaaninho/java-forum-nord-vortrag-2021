@@ -1,5 +1,21 @@
 (ns java-forum-nord.switch)
 
+;; (def y "Holiday")
+
+;;   ;; Was wir haben wollen:
+;;   (switch y
+;;         ("Holiday" "I am not around")
+;;         ("Work" "How can I help?")
+;;         ("Night" "zzZZzzzzZZ"))
+
+;;   ;; Wie wir es machen
+;;   ;;
+;;   (cond
+;;   (= y "Holiday") "I am not around"
+;;   (= y "Work") "How can I help?"
+;;   (= y "Night") "zzZZzzzzZZ")
+
+
 (comment
   (defn prepare-statement [thing statement]
     `((= ~thing ~(first statement))
@@ -13,14 +29,7 @@
          ~@prepared-statements
 
          :else
-         (throw (Exception. (str "No match, got: " ~thing))))))
-
-  (let [y "Work"]
-    (switch y
-            ("Holiday" "I am not around")
-            ("Work" "How can I help?")
-            ("Night" "zzZZzzzzZZ"))))
-
+         (throw (Exception. (str "No match, got: " ~thing)))))))
 
 (comment
   (defn prepare-statement [thing statement]
