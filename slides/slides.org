@@ -573,6 +573,12 @@ EVAL
 
 * Makros --- Quote und Unquote
 
+Wollen *Datenstruktur* =(+ (* 2 3) 4)= erstellen.
+
+* Makros --- Quote und Unquote
+
+Wollen *Datenstruktur* =(+ (* 2 3) 4)= erstellen.
+
 Umständlich und unleserlich:
 
 #+begin_src clojure
@@ -580,6 +586,8 @@ Umständlich und unleserlich:
 #+end_src
 
 * Makros --- Quote und Unquote
+
+Wollen *Datenstruktur* =(+ (* 2 3) 4)= erstellen.
 
 Umständlich und unleserlich:
 
