@@ -86,3 +86,53 @@
           case "Holiday" -> "I am not around"
           case "Work" -> "How can I help?"
           case "Night" -> "zzZZzzzzZZ"))
+
+
+;;; NEU
+
+
+
+;; (def y "Holiday")
+
+;;   ;; Was wir haben wollen:
+;;   (switch y
+;;         case "Holiday" -> case "I am not around"
+;;         case "Work"    -> "How can I help?"
+;;         case "Night"   -> "zzZZzzzzZZ")
+
+;;   ;; Wie wir es machen
+;;   ;;
+;;   (cond
+;;   (= y "Holiday") "I am not around"
+;;   (= y "Work") "How can I help?"
+;;   (= y "Night") "zzZZzzzzZZ")
+
+
+;; Zunächst vereinfacht
+;; (switch "Work"
+;;         ("Holiday" "I am not around")
+;;         ("Work" "How can I help?"))
+
+
+(defmacro switch [value form1 form2]
+  `(cond
+     (= ~value ~(first form1)) ~(second form1)
+     (= ~value ~(first form2)) ~(second form2)))
+
+(defmacro switch [value form1 form2]
+  (list 'cond
+        (list = value (first form1)) (second form1)
+        (list = value (first form2)) (second form2)))
+
+
+(defn prepare-form [value form]
+  `((= ~value ~(second form)) ~(last form)))
+
+(defn prepare-forms [value forms]
+  (mapcat (fn [form] (prepare-form value form))
+          forms))
+
+(defmacro switch [value & forms]
+  (let [statements (prepare-forms value (partition 4 forms))]
+    `(cond
+       ~@statements)))
