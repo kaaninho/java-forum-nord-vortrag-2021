@@ -874,13 +874,12 @@ Ausgedachtes Beispiel
        put 2 {:name "Johannes" :abc 7}
        get-all where :abc > 5)
 
---> 
 
-{2 {:name "Johannes" :abc 7}} 
+↝ {2 {:name "Johannes" :abc 7}} 
 #+end_src
 
 * Noch einen Schritt weiter
 
-Language Oriented Programming:
+\\
 
-In Racket 
+/Language Oriented Programming:/ Racket 
