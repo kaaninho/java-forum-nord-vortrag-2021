@@ -466,6 +466,17 @@ Makros nehmen Datenstrukturen entgegen und geben Datenstrukturen zurück.
 
 Makros nehmen Datenstrukturen entgegen und *geben Datenstrukturen zurück.*
 
+* Makros
+
+\\
+\\
+
+Makros nehmen Datenstrukturen entgegen und *geben Datenstrukturen zurück.*
+
+\\
+
+Wir nennen diese =forms=.
+
 * Makros --- Infix
 
 Statt 
@@ -474,7 +485,7 @@ Statt
 (+ 2 1)
 #+end_src
 
-lieber
+wollen wir
 
 #+begin_src clojure
 (2 + 1)
