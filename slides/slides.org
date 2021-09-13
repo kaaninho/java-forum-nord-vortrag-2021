@@ -542,7 +542,7 @@ wollen wir
 #+begin_src clojure
 (defmacro calc-infix
   [form]
-  (list (second form) (first form) (nth form 2)))
+  (list (second form) (first form) (third form)))
 
 repl> (calc-infix (2 + 1))
 #+end_src
@@ -552,7 +552,7 @@ repl> (calc-infix (2 + 1))
 #+begin_src clojure
 (defmacro calc-infix
   [form]
-  (list (second form) (first form) (nth form 2)))
+  (list (second form) (first form) (third form)))
 
 repl> (calc-infix (2 + 1))
 
@@ -565,7 +565,7 @@ Datenstruktur: (calc-infix (2 + 1))
 #+begin_src clojure
 (defmacro calc-infix
   [form]
-  (list (second form) (first form) (nth form 2)))
+  (list (second form) (first form) (third form)))
 
 repl> (calc-infix (2 + 1))
 
@@ -583,7 +583,7 @@ MAKROEXPANSION
 #+begin_src clojure
 (defmacro calc-infix
   [form]
-  (list (second form) (first form) (nth form 2)))
+  (list (second form) (first form) (third form)))
 
 repl> (calc-infix (2 + 1))
 
@@ -591,7 +591,7 @@ READER
 Datenstruktur: (calc-infix (2 + 1))
 
 MAKROEXPANSION
-↝ (list (second (2 + 1)) (first (2 + 1)) (nth (2 + 1) 2))
+↝ (list (second (2 + 1)) (first (2 + 1)) (third (2 + 1)))
 ↝ (list + 2 1)
 ↝ (+ 2 1) [Datenstruktur!]
 
