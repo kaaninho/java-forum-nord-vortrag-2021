@@ -598,6 +598,8 @@ Umständlich und unleserlich:
 
 * Makros --- Quote und Unquote
 
+Wollen *Datenstruktur* =(+ (* 2 3) 4)= erstellen.
+
 Umständlich und unleserlich:
 
 #+begin_src clojure
@@ -612,23 +614,6 @@ Besser:
 `(+ (* 2 3) 4)
 #+end_src
 
-* Makros --- Quote und Unquote
-
-Umständlich und unleserlich:
-
-#+begin_src clojure
-(list + (list * 2 3) 4)
-↝ (+ (* 2 3) 4)
-#+end_src
-
-\\
-
-Besser:
-
-#+begin_src clojure
-`(+ (* 2 3) 4)
-↝ (+ (* 2 3) 4)
-#+end_src
 
 * Makros --- Quote und Unquote
 
@@ -650,7 +635,24 @@ Jedoch
 
 \\
 
-Und:
+Aber
+
+#+begin_src clojure
+`(+ (* 2 3) 4)
+#+end_src
+
+* Makros --- Quote und Unquote
+
+Jedoch
+
+#+begin_src clojure
+(list + (* 2 3) 4)
+↝ (+ 6 4)
+#+end_src
+
+\\
+
+Aber
 
 #+begin_src clojure
 `(+ (* 2 3) 4)
@@ -685,7 +687,15 @@ Abhilfe
 
 
 
+* Method Timing
 
+Java?
+
+* Method Timing
+
+Java?
+
+https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java
 
 * Method Timing
 
@@ -702,6 +712,10 @@ long endTime = System.currentTimeMillis();
 
 System.out.println("Needed " + (endTime - startTime) + " ms.");
 #+end_src
+
+* Method Timing
+
+Clojure?
 
 * Method Timing
 
