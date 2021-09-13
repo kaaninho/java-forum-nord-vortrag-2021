@@ -81,7 +81,7 @@ Spracherweiterung via Libraries:
 - Interop mit Java
 - ermutigt funktionale Programmierung
 - unveränderbare Datenstrukturen
-- besonderer Augenmerk auf Nebenläufigkeit
+- besonderes Augenmerk auf Nebenläufigkeit
 
 #+BEGIN_NOTES
 - JVM: etablierte, anerkannte Umgebung
@@ -375,6 +375,8 @@ repl> (foo (+ 2 1) (+ 2 2))
 
 * Clojure --- REPL
 
+\\
+
 Live-Coding
 
 
@@ -393,6 +395,8 @@ Der Clojure-Reader liest Text und gibt Datenstrukturen zurück.
 Der Evaluator nimmt Datenstrukturen und evaluiert sie zu Werten.
 
 * Kompilation --- Read und Eval
+
+\\
 
 Live-Coding
 
@@ -505,9 +509,23 @@ lieber
 #+begin_src clojure
 (defmacro calc-infix
   [form]
-  (list (second form) (first form) (third form)))
+  (list (second form) ... ...))
 #+end_src
 
+* Makros --- Infix
+
+#+begin_src clojure
+(defmacro calc-infix
+  [form]
+  (list (second form) (first form) ...))
+#+end_src
+* Makros --- Infix
+
+#+begin_src clojure
+(defmacro calc-infix
+  [form]
+  (list (second form) (first form) (third form)))
+#+end_src
 * Makros --- Infix
 
 #+begin_src clojure
@@ -783,7 +801,9 @@ Zu viel Handarbeit!
 
 * Method Timing
 
-Live-Coding: Erst Einführung in REPL und ein bisschen Auswertung zeigen
+\\
+
+Live-Coding
 
 #+begin_notes clojure
 - Benutze =C-c M-p= (insert-last-sexpr in REPL)
@@ -867,7 +887,7 @@ und Typed Clojure
 
 * DSLs
 
-Ausgedachtes Beispiel
+Beispiel: Datenbankspezifische Sprache
 
 #+begin_src clojure
 (do-db put 1 {:name "Kaan" :abc 5}

@@ -51,6 +51,10 @@
           (filter ~(make-pred-fn variable pred)
                   ~lis))))
 
+
+
+
+
 (lc [(* x x) for x in [1 2 3 4] where (> x 2)])
 
 
