@@ -5,19 +5,19 @@
 #+REVEAL_ROOT: file:///home/kaan/tmp/reveal.js
 #+REVEAL_HLEVEL: 100
 #+REVEAL_TRANS: none
-#+OPTIONS: num:nil toc:nil reveal-center:f reveal_slide_number:nil reveal_title_slide:nil
+#+OPTIONS: num:nil toc:nil reveal-center:f reveal_slide_number:t reveal_title_slide:nil
 #+MACRO: newline   src_emacs-lisp[:results raw]{"\n "}
 #+MACRO: TIKZ-IMG #+HEADER: :exports results :file $1 :imagemagick yes {{{newline}}} #+HEADER: :results raw {{{newline}}} #+HEADER: :headers '("\usepackage{tikz}") {{{newline}}} #+HEADER: :fit yes :imoutoptions -geometry $2 :iminoptions -density 600
 
 * Ohne Deine eigene Programmiersprache machen zu müssen!
 
-#+attr_html: :width 400px
+#+HTML: <div><div style="max-width:400px;padding-left:130px">
 [[file:images/drawing-hands.jpg]]
 
-
+#+HTML: </div><div>
 /If you give someone Fortran, he has Fortran./
 /If you give someone Lisp, he has any language he pleases./  —Guy L. Steele
-
+#+HTML: </div></div>
 * Motivation
 
 \\
@@ -685,7 +685,45 @@ Abhilfe
 ↝ (+ 6 4)
 #+end_src
 
+* Makros --- Quote und Unquote
 
+#+begin_src clojure
+(def my-var 100)
+
+`(1 2 3 my-var)
+#+end_src
+
+* Makros --- Quote und Unquote
+
+#+begin_src clojure
+(def my-var 100)
+
+`(1 2 3 my-var)
+↝ (1 2 3 my-var)
+#+end_src
+
+* Makros --- Quote und Unquote
+
+#+begin_src clojure
+(def my-var 100)
+
+`(1 2 3 my-var)
+↝ (1 2 3 my-var)
+
+`(1 2 3 ~my-var)
+#+end_src
+
+* Makros --- Quote und Unquote
+
+#+begin_src clojure
+(def my-var 100)
+
+`(1 2 3 my-var)
+↝ (1 2 3 my-var)
+
+`(1 2 3 ~my-var)
+↝ (1 2 3 100)
+#+end_src
 
 * Method Timing
 
@@ -776,10 +814,6 @@ public String getTypeOfDayWithSwitchStatement(String dayOfWeekArg) {
 #+begin_notes
 Release war: 2011-07-11	
 #+end_notes
-
-* String switch
-
-
 
 * vorhandene Typsysteme
 
