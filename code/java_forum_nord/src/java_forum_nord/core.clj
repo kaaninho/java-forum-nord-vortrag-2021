@@ -25,6 +25,26 @@ true
   (= 3 3) "Ich bin das Ergebnis"
   (> 3 2) "Ich bin nicht das Ergebnis")
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;;; Funktionen
 
 (defn add1
@@ -41,9 +61,26 @@ true
 
 
 
-;;; REPL und IDE
 
-;;; zeige Dinge von oben und dann auch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;; REPL und IDE
 
 ;; Definition eines "Counters" (der keiner ist)
 (def counter 15)
@@ -61,6 +98,28 @@ counter
   (+ x y))
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;;; Higher Order Functions
 
 (map inc [1 2 3])
@@ -76,12 +135,65 @@ counter
 
 ;;; ENDE REPL
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ;;; READ UND EVAL
 
 (read-string "(+ 1 2)")
 (eval (read-string "(+ 1 2)"))
 
 ;;; ENDE READ UND EVAL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ;;; Makros
 
@@ -91,15 +203,128 @@ counter
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(defn do-something []
+  (Thread/sleep 1300))
+
+(let [before (System/currentTimeMillis)
+      result (do-something)
+      after  (System/currentTimeMillis)]
+  (println "Needed: " (- after before) " ms.")
+  result)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;; Switch
+
+(def y "Work")
+
+(switch y
+        case "Holiday" -> "I am not around"
+        case "Work"    -> "How can I help?")
+
+
+;; ->
+
+(cond
+  (= y "Holiday") "I am not around"
+  (= y "Work") "How can I help")
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;; ZWISCHENSCHRITT
+
+(switch y
+        ("Holiday" "I am not around")
+        ("Work" "How can I help?"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;;;;; EMIT DEFS
+
 (defmacro emit-defs [sym-name low mid high]
   `(do
      (def ~(symbol (str sym-name "-high"))
-          ~high)
+       ~high)
      (def ~(symbol (str sym-name "-mid"))
        ~mid)
      (def ~(symbol (str sym-name "-low"))
        ~low)))
-
-(macroexpand-1 '(emit-defs kaan 1 2 3))
-
-kaan-high
