@@ -133,6 +133,4 @@
           forms))
 
 (defmacro switch [value & forms]
-  (let [statements (prepare-forms value (partition 4 forms))]
-    `(cond
-       ~@statements)))
+  `(cond ~@(prepare-forms value (partition 4 forms))))
