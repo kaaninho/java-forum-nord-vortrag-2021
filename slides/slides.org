@@ -888,14 +888,6 @@ und Typed Clojure
 - Typed Clojure: Static Type analysis (zur Compile-Zeit)
 #+end_notes
 
-* Concurrency
-
-- core.async
-
-#+begin_src clojure
-
-#+end_src
-
 * DSLs
 
 Beispiel: Datenbankspezifische Sprache
