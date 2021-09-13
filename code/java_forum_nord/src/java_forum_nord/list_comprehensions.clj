@@ -55,7 +55,46 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (lc [(* x x) for x in [1 2 3 4] where (> x 2)])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;; Aber: "normaler Weg" sogar kürzer bzgl. Zeichen und für funktionale
