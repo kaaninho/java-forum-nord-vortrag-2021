@@ -34,7 +34,7 @@
 Python
 
 #+begin_src python
-[x for x in range(20) if x % 2 == 0]
+[x * x for x in range(20) if x % 2 == 0]
 #+end_src
 
 \\ 
@@ -42,7 +42,7 @@ Python
 Haskell
 
 #+begin_src haskell
-[x | x <- [1, 2, 3, 4], x > 2]
+[x * x | x <- [1, 2, 3, 4], x > 2]
 #+end_src
 
 * Motivation --- Pattern Matching

@@ -121,48 +121,49 @@
 
 
 
-(defun foo (Number -> Number)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#_(defun foo (Number -> Number)
   [x]
   x)
 
-(defun bar (Number String Number -> String)
+#_(defun bar (Number String Number -> String)
   [x y z]
   y)
 
-(defun baz (Number -> Number)
+#_(defun baz (Number -> Number)
   [x]
   (+ x 3))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 #_(defmacro remove-type [sym]
