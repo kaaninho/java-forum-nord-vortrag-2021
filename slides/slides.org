@@ -418,17 +418,20 @@ Der Evaluator nimmt Datenstrukturen und evaluiert sie zu Werten.
 
 \\
 
-#+attr_html: :width 800px
+#+attr_html: :width 900px
+[[file:images/read-macro-eval.svg]]
+
+* Kompilation --- Read, Eval und Makroexpansion!
+
+\\
+
+#+attr_html: :width 900px
 [[file:images/read-macro-eval.svg]]
 
 \\
 \\
 
-Der Clojure-Reader liest Text und gibt Datenstrukturen zurück.
-
-*In der Makroexpansion werden Makroaufrufe getätigt.*
-
-Der Evaluator nimmt Datenstrukturen und evaluiert sie zu Werten.
+In der Makroexpansion werden Makroaufrufe getätigt.
 
 #+begin_notes
 Weil ja READ Datenstrukturen liefert und EVAL Datenstrukturen entgegennimmt,
@@ -439,43 +442,34 @@ muss folgen, dass Makros Datenstrukturen konsumieren und zurückgeben
 
 \\
 
-#+attr_html: :width 800px
-[[file:images/read-macro-eval.svg]]
+#+attr_html: :width 900px
+file:images/read-macro-eval.svg
 
 \\
 \\
 
-Der Clojure-Reader liest Text und gibt Datenstrukturen zurück.
+Makros nehmen Datenstrukturen (=forms=) entgegen und geben Datenstrukturen
+(=forms=) zurück.
 
-*In der Makroexpansion werden Makroaufrufe getätigt.*\\
-*Makros nehmen Datenstrukturen entgegen und geben Datenstrukturen zurück.*
-
-Der Evaluator nimmt Datenstrukturen und evaluiert sie zu Werten.
 
 * Makros
 
 \\
 \\
 
-Makros nehmen Datenstrukturen entgegen und geben Datenstrukturen zurück.
+Makros nehmen Datenstrukturen (=forms=) entgegen und geben Datenstrukturen
+(=forms=) zurück.
+
 
 * Makros
 
 \\
 \\
 
-Makros nehmen Datenstrukturen entgegen und *geben Datenstrukturen zurück.*
-
-* Makros
-
-\\
-\\
-
-Makros nehmen Datenstrukturen entgegen und *geben Datenstrukturen zurück.*
+Makros nehmen Datenstrukturen (=forms=) entgegen und *geben Datenstrukturen
+(=forms=) zurück.*
 
 \\
-
-Wir nennen diese =forms=.
 
 * Makros --- Infix
 
