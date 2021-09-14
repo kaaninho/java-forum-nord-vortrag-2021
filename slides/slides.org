@@ -448,8 +448,8 @@ file:images/read-macro-eval.svg
 \\
 \\
 
-Makros nehmen Datenstrukturen (=forms=) entgegen und geben Datenstrukturen
-(=forms=) zurück.
+Makros nehmen Datenstrukturen ("forms") entgegen und geben Datenstrukturen
+("forms") zurück.
 
 
 * Makros
@@ -457,8 +457,8 @@ Makros nehmen Datenstrukturen (=forms=) entgegen und geben Datenstrukturen
 \\
 \\
 
-Makros nehmen Datenstrukturen (=forms=) entgegen und geben Datenstrukturen
-(=forms=) zurück.
+Makros nehmen Datenstrukturen ("forms") entgegen und geben Datenstrukturen
+("forms") zurück.
 
 
 * Makros
@@ -466,8 +466,8 @@ Makros nehmen Datenstrukturen (=forms=) entgegen und geben Datenstrukturen
 \\
 \\
 
-Makros nehmen Datenstrukturen (=forms=) entgegen und *geben Datenstrukturen
-(=forms=) zurück.*
+Makros nehmen Datenstrukturen ("forms") entgegen und *geben Datenstrukturen
+("forms") zurück.*
 
 \\
 
@@ -596,11 +596,11 @@ EVAL
 
 * Makros --- Quote und Unquote
 
-Wollen *Datenstruktur* =(+ (* 2 3) 4)= erstellen.
+Wollen die *form* =(+ (* 2 3) 4)= erstellen.
 
 * Makros --- Quote und Unquote
 
-Wollen *Datenstruktur* =(+ (* 2 3) 4)= erstellen.
+Wollen die *form* =(+ (* 2 3) 4)= erstellen.
 
 Umständlich und unleserlich:
 
@@ -610,7 +610,7 @@ Umständlich und unleserlich:
 
 * Makros --- Quote und Unquote
 
-Wollen *Datenstruktur* =(+ (* 2 3) 4)= erstellen.
+Wollen die *form* =(+ (* 2 3) 4)= erstellen.
 
 Umständlich und unleserlich:
 
@@ -621,7 +621,7 @@ Umständlich und unleserlich:
 
 * Makros --- Quote und Unquote
 
-Wollen *Datenstruktur* =(+ (* 2 3) 4)= erstellen.
+Wollen die *form* =(+ (* 2 3) 4)= erstellen.
 
 Umständlich und unleserlich:
 
@@ -637,7 +637,6 @@ Besser:
 `(+ (* 2 3) 4)
 #+end_src
 
-
 * Makros --- Quote und Unquote
 
 Jedoch
@@ -681,7 +680,6 @@ Aber
 `(+ (* 2 3) 4)
 ↝ (+ (* 2 3) 4)
 #+end_src
-
 
 * Makros --- Quote und Unquote
 
@@ -757,7 +755,6 @@ Java?
 Java?
 
 https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java
-
 * Method Timing
 
 Java?
