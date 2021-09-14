@@ -127,24 +127,24 @@ zudem noch:
 * Clojure --- Syntax
 
 #+begin_src clojure
-3
+3                                        ;; Integer
 
-"String"
+"String"                                 ;; String
 
-symbol
+sym                                      ;; Symbol
 
-true
+true                                     ;; Boolean
 
-(* (+ 4 3) 2)
+(* (+ 4 3) 2)                            ;; Integer (nach Funktionsaufruf)
 
-(list 1 2 3 "Hallo" (+ 1 2))
+(list 1 2 3 "Hallo" (+ 1 2))             ;; Liste
 
-(if (> 2 3) "It is true" 100)
+(if (> 2 3) "It is true" 100)            ;; Integer (nach Funktionsaufruf)
 
 (cond
   (> 3 4) "Ich bin nicht das Ergebnis"
   (= 3 3) "Ich bin das Ergebnis"
-  (> 3 2) "Ich bin nicht das Ergebnis")
+  (> 3 2) "Ich bin nicht das Ergebnis")  ;; String
 #+end_src
 
 * Clojure --- Syntax, Definitionen

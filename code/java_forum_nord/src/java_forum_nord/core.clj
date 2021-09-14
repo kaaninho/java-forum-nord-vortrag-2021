@@ -8,11 +8,13 @@
 
 "String"
 
-'symbol
+'sym
 
 true
 
-(list 1 2 3)
+(* (+ 4 3) 2)
+
+(list 1 2 3 "Hallo" (+ 1 2))
 
 (inc 3)
 
