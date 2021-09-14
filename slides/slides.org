@@ -384,15 +384,15 @@ Live-Coding
 
 \\
 
-#+attr_html: :width 600px
+#+attr_html: :width 800px
 [[file:images/read-eval.svg]]
 
 \\
 \\
 
-Der Clojure-Reader liest Text und gibt Datenstrukturen zurück.
+Der Clojure-Reader liest Text und gibt Datenstrukturen ("forms") zurück.
 
-Der Evaluator nimmt Datenstrukturen und evaluiert sie zu Werten.
+Der Evaluator nimmt Datenstrukturen ("forms") und evaluiert sie zu Werten.
 
 * Kompilation --- Read und Eval
 
@@ -404,15 +404,15 @@ Live-Coding
 
 \\
 
-#+attr_html: :width 600px
+#+attr_html: :width 800px
 [[file:images/read-eval.svg]]
 
 \\
 \\
 
-Der Clojure-Reader liest Text und gibt Datenstrukturen zurück.
+Der Clojure-Reader liest Text und gibt Datenstrukturen ("forms") zurück.
 
-Der Evaluator nimmt Datenstrukturen und evaluiert sie zu Werten.
+Der Evaluator nimmt Datenstrukturen ("forms") und evaluiert sie zu Werten.
 
 * Kompilation --- Read, Eval und Makroexpansion!
 

@@ -220,7 +220,8 @@ counter
 
 
 (defn do-something []
-  (Thread/sleep 1300))
+  (Thread/sleep 1300)
+  15)
 
 (let [before (System/currentTimeMillis)
       result (do-something)
@@ -294,6 +295,22 @@ counter
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+`(1 2 3 ~(list 4 5) 6 7)
+
+
+(list 1 2 3 4 5 6 7 8 9 10 11 12)
 
 
 
