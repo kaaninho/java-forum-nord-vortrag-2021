@@ -259,19 +259,16 @@ counter
 
 (def y "Work")
 
-(switch y
-        case "Holiday" -> "I am not around"
-        case "Work"    -> "How can I help?")
+;; ;; (switch y
+;; ;;         case "Holiday" -> "I am not around"
+;; ;;         case "Work"    -> "How can I help?")
 
 
-;; ->
+;; ;; ->
 
-(cond
-  (= y "Holiday") "I am not around"
-  (= y "Work") "How can I help")
-
-
-
+;; (cond
+;;   (= y "Holiday") "I am not around"
+;;   (= y "Work") "How can I help")
 
 
 
@@ -282,11 +279,15 @@ counter
 
 
 
-;;; ZWISCHENSCHRITT
 
-(switch y
-        ("Holiday" "I am not around")
-        ("Work" "How can I help?"))
+
+
+;; ;;; ZWISCHENSCHRITT
+
+;; (switch y
+;;         ("Holiday" "I am not around")
+;;         ("Work" "How can I help?"))
+
 
 
 
