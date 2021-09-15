@@ -944,3 +944,8 @@ Beispiel: Datenbankspezifische Sprache
 \\
 
 /Language Oriented Programming:/ Racket 
+
+\\
+
+Blogpostreihe "Makros in Clojure" auf /funktionale-programmierung.de/
+
