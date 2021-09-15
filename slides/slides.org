@@ -803,6 +803,24 @@ Zu viel Handarbeit!
 
 * Method Timing
 
+Wollen nur schreiben:
+
+#+begin_src clojure
+(timing (do-something))
+#+end_src
+
+* Method Timing
+
+\\
+
+#+begin_src clojure
+(defmacro timing [form]
+  ...)
+#+end_src
+
+
+* Method Timing
+
 \\
 
 Live-Coding
