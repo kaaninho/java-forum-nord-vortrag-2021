@@ -898,7 +898,7 @@ public String getTypeOfDayWithSwitchStatement(String dayOfWeekArg) {
 Release war: 2011-07-11	
 #+end_notes
 
-* Method Timing
+* String switch
 
 Wollen folgende Syntax implementieren
 
@@ -907,14 +907,17 @@ Wollen folgende Syntax implementieren
 
 (switch y
         case "Holiday" -> "I am not around"
-        case "Work" -> "How can I help?")
+        case "Work"    -> "How can I help?")
 #+end_src
-* Method Timing
+
+* String switch
+
+\\ 
 
 #+begin_src clojure
 (switch y
         case "Holiday" -> "I am not around"
-        case "Work" -> "How can I help?")
+        case "Work"    -> "How can I help?")
 
 ↝ [MAKROEXPANSION]
 
@@ -922,6 +925,345 @@ Wollen folgende Syntax implementieren
   (= y "Holiday") "I am not around"
   (= y "Work") "How can I help?")
 #+end_src
+
+* String switch
+
+Zunächst vereinfacht
+
+#+begin_src clojure
+(switch "Work"
+        ("Holiday" "I am not around")
+        ("Work" "How can I help?"))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defmacro switch [value form1 form2]
+  ...)
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defmacro switch [value form1 form2]
+  `(cond
+     (= y "Holiday") "I am not around"
+     (= y "Work") "How can I help?"))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defmacro switch [value form1 form2]
+  `(cond
+     (= value "Holiday") "I am not around"
+     (= value "Work") "How can I help?"))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defmacro switch [value form1 form2]
+  `(cond
+     (= value (first form1)) (second form1)
+     (= value (first form2)) (second form2))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defmacro switch [value form1 form2]
+  `(cond
+     (= ~value ~(first form1)) ~(second form1)
+     (= ~value ~(first form2)) ~(second form2))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  (= ~value ~(first form)) ~(second form))
+
+(defmacro switch [value form1 form2]
+  `(cond
+     (= ~value ~(first form1)) ~(second form1)
+     (= ~value ~(first form2)) ~(second form2))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(first form)) ~(second form)))
+
+(defmacro switch [value form1 form2]
+  `(cond
+     (= ~value ~(first form1)) ~(second form1)
+     (= ~value ~(first form2)) ~(second form2))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(first form)) ~(second form)))
+
+(defmacro switch [value form1 form2]
+  `(cond
+     ~(prepare-form value form1)
+     (= ~value ~(first form2)) ~(second form2))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+`(1 2 ~(list 3 4) 5)
+↝ (1 2 (3 4) 5)
+#+end_src
+
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+`(1 2 ~(list 3 4) 5)
+↝ (1 2 (3 4) 5)
+
+`(1 2 ~@(list 3 4) 5)
+↝ (1 2 3 4 5)
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(first form)) ~(second form)))
+
+(defmacro switch [value form1 form2]
+  `(cond
+     ~@(prepare-form value form1)
+     ~@(prepare-form value form2)))
+#+end_src
+
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(switch "Work"
+        ("Holiday" "I am not around")
+        ("Work" "How can I help?"))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(switch "Work"
+        ("Holiday" "I am not around")
+        ("Work" "How can I help?")
+        ("Sleep" "zzZZzzzzZZ"))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(switch "Work"
+        ("Holiday" "I am not around")
+        ("Work" "How can I help?")
+        ("Sleep" "zzZZzzzzZZ"))
+
+↝ Wrong number of args (4)
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(first form)) ~(second form)))
+
+(defmacro switch [value & forms]
+  `(cond
+     ~@(prepare-form value form1)
+     ~@(prepare-form value form2)))
+#+end_src
+
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(first form)) ~(second form)))
+
+(defn prepare-forms [value forms]
+  (map ... forms))
+
+(defmacro switch [value & forms]
+  `(cond
+     ~@(prepare-form value form1)
+     ~@(prepare-form value form2)))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(first form)) ~(second form)))
+
+(defn prepare-forms [value forms]
+  (map (fn [form] (prepare-form value form))
+       forms))
+
+(defmacro switch [value & forms]
+  `(cond
+     ~@(prepare-form value form1)
+     ~@(prepare-form value form2)))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(first form)) ~(second form)))
+
+(defn prepare-forms [value forms]
+  (map (fn [form] (prepare-form value form))
+       forms))
+
+(defmacro switch [value & forms]
+  `(cond
+     ~@(prepare-forms value forms)))
+#+end_src
+
+* String switch
+
+Wollen 
+
+#+begin_src clojure
+(switch "Work"
+        (case "Holiday" -> "I am not around")
+        (case "Work"    -> "How can I help?")
+        (case "Sleep"   -> "zzZZzzzzZZ"))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(second form)) ~(last form)))
+
+(defn prepare-forms [value forms]
+  (map (fn [form] (prepare-form value form))
+       forms))
+
+(defmacro switch [value & forms]
+  `(cond
+     ~@(prepare-forms value forms)))
+#+end_src
+
+* String switch
+
+Wollen 
+
+#+begin_src clojure
+(switch "Work"
+        case "Holiday" -> "I am not around"
+        case "Work"    -> "How can I help?"
+        case "Sleep"   -> "zzZZzzzzZZ")
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(list 1 2 3 4 5 6 7 8 9 10 11 12)
+↝ (1 2 3 4 5 6 7 8 9 10 11 12)
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(list 1 2 3 4 5 6 7 8 9 10 11 12)
+↝ (1 2 3 4 5 6 7 8 9 10 11 12)
+
+(partition 4 (list 1 2 3 4 5 6 7 8 9 10 11 12))
+↝ ((1 2 3 4) (5 6 7 8) (9 10 11 12))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(second form)) ~(last form)))
+
+(defn prepare-forms [value forms]
+  (map (fn [form] (prepare-form value form))
+       forms))
+
+(defmacro switch [value & forms]
+  `(cond
+     ~@(prepare-forms value forms)))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(second form)) ~(last form)))
+
+(defn prepare-forms [value forms]
+  (map (fn [form] (prepare-form value form))
+       forms))
+
+(defmacro switch [value & forms]
+  `(cond
+     ~@(prepare-forms value (partition 4 forms))))
+#+end_src
+
+
 
 * vorhandene Typsysteme
 
@@ -983,3 +1325,7 @@ Beispiel: Datenbankspezifische Sprache
 \\
 
 /Language Oriented Programming:/ Racket 
+
+\\
+
+Blogpostreihe "Makros in Clojure" auf /funktionale-programmierung.de/
