@@ -567,7 +567,7 @@ READER
 Datenstruktur: (calc-infix (2 + 1))
 
 MAKROEXPANSION
-↝ (list (second (2 + 1)) (first (2 + 1)) (nth (2 + 1) 2))
+↝ (list (second (2 + 1)) (first (2 + 1)) (third (2 + 1)))
 ↝ (list + 2 1)
 ↝ (+ 2 1) [Datenstruktur!]
 #+end_src
