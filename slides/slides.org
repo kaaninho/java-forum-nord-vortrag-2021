@@ -939,13 +939,17 @@ Beispiel: Datenbankspezifische Sprache
 ↝ {2 {:name "Johannes" :abc 7}} 
 #+end_src
 
-* Noch einen Schritt weiter
+* Noch mehr Interesse!?
 
 \\
 
-/Language Oriented Programming:/ Racket 
+- Slides und Code zu diesem Talk auf https://github.com/kaaninho/java-forum-nord-vortrag-2021
 
 \\
 
-Blogpostreihe "Makros in Clojure" auf /funktionale-programmierung.de/
+- Blogpostreihe "Makros in Clojure" auf https://funktionale-programmierung.de
+
+\\
+
+
 
