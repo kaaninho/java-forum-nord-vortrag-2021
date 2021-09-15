@@ -855,7 +855,7 @@ public String getTypeOfDayWithSwitchStatement(String dayOfWeekArg) {
 Release war: 2011-07-11	
 #+end_notes
 
-* Method Timing
+* String switch
 
 Wollen folgende Syntax implementieren
 
@@ -864,15 +864,17 @@ Wollen folgende Syntax implementieren
 
 (switch y
         case "Holiday" -> "I am not around"
-        case "Work" -> "How can I help?")
+        case "Work"    -> "How can I help?")
 #+end_src
 
-* Method Timing
+* String switch
+
+\\
 
 #+begin_src clojure
 (switch y
         case "Holiday" -> "I am not around"
-        case "Work" -> "How can I help?")
+        case "Work"    -> "How can I help?")
 
 ↝ [MAKROEXPANSION]
 
