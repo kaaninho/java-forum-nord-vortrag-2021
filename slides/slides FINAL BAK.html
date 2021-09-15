@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Mach Deine eigene Programmiersprache!</title>
+<meta name="author" content="Kaan Sahin, Active Group GmbH"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="file:///home/kaan/tmp/reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="file:///home/kaan/tmp/reveal.js/css/theme/active.css" id="theme"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'file:///home/kaan/tmp/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1 class="title">Mach Deine eigene Programmiersprache!</h1><h2 class="author">Kaan Sahin, Active Group GmbH</h2><p class="date">Created: 2021-09-15 Wed 11:24</p>
+</section>
+
+
+<section>
+<section id="slide-org0f416b0">
+<h2 id="org0f416b0">Ohne Deine eigene Programmiersprache machen zu müssen!</h2>
+<div><div style="max-width:400px;padding-left:130px">
+
+<div id="orge2440ea" class="figure">
+<p><img src="images/drawing-hands.jpg" alt="drawing-hands.jpg" />
+</p>
+</div>
+
+</div><div>
+<p>
+<i>If you give someone Fortran, he has Fortran.</i>
+<i>If you give someone Lisp, he has any language he pleases.</i>  —Guy L. Steele
+</p>
+</div></div>
+</section>
+</section>
+<section>
+<section id="slide-orgbf23bfb">
+<h2 id="orgbf23bfb">Motivation</h2>
+<p>
+<br />
+</p>
+
+<p>
+<i>"Sandra sagt, sie benutzt gerne Python, da ihr in anderen Sprachen die</i>
+<i>List-Comprehensions fehlen. Simon findet C# toll, wegen async.</i>
+</p>
+
+<p>
+<i>Wir sagen: Benutz doch einfach Clojure und schreib Makros, dann kannst Du diese</i>
+<i>Features einfach als Libraries importieren!"</i>
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org53b8ccc">
+<h2 id="org53b8ccc">Motivation &#x2014; List Comprehensions</h2>
+<p>
+Python
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-python">[x * x <span style="color: #e45649;">for</span> x <span style="color: #e45649;">in</span> <span style="color: #a626a4;">range</span>(<span style="color: #da8548; font-weight: bold;">20</span>) <span style="color: #e45649;">if</span> x % <span style="color: #da8548; font-weight: bold;">2</span> == <span style="color: #da8548; font-weight: bold;">0</span>]
+</pre>
+</div>
+
+<p>
+<br />
+</p>
+
+<p>
+Haskell
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-haskell">[x <span style="color: #6a1868;">*</span> x <span style="color: #6a1868;">|</span> x <span style="color: #6a1868;">&lt;-</span> [<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">2</span>, <span style="color: #da8548; font-weight: bold;">3</span>, <span style="color: #da8548; font-weight: bold;">4</span>], x <span style="color: #6a1868;">&gt;</span> <span style="color: #da8548; font-weight: bold;">2</span>]
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orga036837">
+<h2 id="orga036837">Motivation &#x2014; Pattern Matching</h2>
+<p>
+Elixir
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elixir">  <span style="color: #e45649;">def</span> <span style="color: #a626a4;">fun</span>([<span style="color: #50a14f;">"Hi"</span>, name]), <span style="color: #a0bcf8;">do:</span> <span style="color: #50a14f;">"What's up, "</span> &lt;&gt; name &lt;&gt; <span style="color: #50a14f;">"?"</span>
+  <span style="color: #e45649;">def</span> <span style="color: #a626a4;">fun</span>(lis), <span style="color: #a0bcf8;">do:</span> <span style="color: #50a14f;">"something else"</span>
+
+<span style="color: #e45649;">case</span> {<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">2</span>, <span style="color: #da8548; font-weight: bold;">3</span>} <span style="color: #e45649;">do</span>
+  {<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">2</span>, <span style="color: #da8548; font-weight: bold;">4</span>} -&gt; <span style="color: #50a14f;">"this won't match"</span>
+  {<span style="color: #da8548; font-weight: bold;">1</span>, <span style="color: #da8548; font-weight: bold;">2</span>, x} -&gt; x
+  <span style="color: #b751b6;">_</span>         -&gt; <span style="color: #50a14f;">"if nothing else matches"</span>
+<span style="color: #e45649;">end</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb014689">
+<h2 id="orgb014689">Motivation</h2>
+<p>
+Weitere Schreiberleichterung: 
+</p>
+
+<ul>
+<li>Getter-/Setter-Funktionen</li>
+<li>Wiederkehrende Definitionen / Umständlichkeiten</li>
+
+</ul>
+
+<p>
+Spracherweiterung via Libraries:
+</p>
+
+<ul>
+<li>Concurrency-System</li>
+<li>DSLs</li>
+<li>Statisches Typsystem</li>
+<li>. . .</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org27acfa6">
+<h2 id="org27acfa6">Clojure &#x2014; Übersicht</h2>
+<ul>
+<li>Lisp-Dialekt</li>
+<li>kompiliert zu JVM-Bytecode</li>
+<li>Interop mit Java</li>
+<li>ermutigt funktionale Programmierung</li>
+<li>unveränderbare Datenstrukturen</li>
+<li>besonderes Augenmerk auf Nebenläufigkeit</li>
+
+</ul>
+
+<aside class="notes">
+<ul>
+<li>JVM: etablierte, anerkannte Umgebung</li>
+<li>funktional: immutable data &amp; first-class functions</li>
+<li>Weil Lisp-Dialekt: Programmcode ist dem AST ähnlich</li>
+
+</ul>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-orge7024b6">
+<h2 id="orge7024b6">Clojure &#x2014; (Lisp-)Syntax</h2>
+<ul>
+<li>Zwei Arten von Ausdrücken:
+<ul>
+<li>Atomare Ausdrücke: <code>17</code>, <code>"Hallo"</code>, <code>sym</code>, <code>false</code></li>
+<li>Listen: <code>(or false (&gt; 2 1))</code></li>
+
+</ul></li>
+
+</ul>
+
+<aside class="notes">
+<ul>
+<li>Ausdrücke werden evaluiert / ausgewertet zu Werten</li>
+<li>Ein Ausdruck mit Klammern ist meistens ein Funktionsaufruf</li>
+<li>Heute wird es aber oft was anderes sein, ein Makro oder eine special form</li>
+<li>In Clojure gibt es noch drei weitere Arten von collection types: Vektoren,
+Maps und Mengen</li>
+
+</ul>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-orgdd1d314">
+<h2 id="orgdd1d314">Clojure &#x2014; Syntax</h2>
+<ul>
+<li>Zwei Arten von Ausdrücken:
+<ul>
+<li>Atomare Ausdrücke: <code>17</code>, <code>"Hallo"</code>, <code>sym</code>, <code>false</code></li>
+<li>Listen: <code>(or false (&gt; 2 1))</code></li>
+
+</ul></li>
+
+</ul>
+
+<p>
+<br />
+</p>
+
+<p>
+zudem noch: 
+</p>
+<ul>
+<li>Keywords: <code>:color</code></li>
+<li>Vektoren: <code>[1 2]</code>,</li>
+<li>Maps: <code>{:a 1 :b 5}</code> und</li>
+<li>Mengen: <code>#{5, 7}</code></li>
+
+</ul>
+<aside class="notes">
+<ul>
+<li>Ausdrücke werden evaluiert / ausgewertet zu Werten</li>
+<li>Ein Ausdruck mit Klammern ist meistens ein Funktionsaufruf</li>
+<li>Heute wird es aber oft was anderes sein, ein Makro oder eine special form</li>
+<li>In Clojure gibt es noch drei weitere Arten von collection types: Vektoren,
+Maps und Mengen</li>
+
+</ul>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-org48fe76d">
+<h2 id="org48fe76d">Clojure &#x2014; Syntax</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure"><span style="color: #da8548; font-weight: bold;">3</span>                                        <span style="color: #9ca0a4;">;; </span><span style="color: #9ca0a4;">Integer</span>
+
+<span style="color: #50a14f;">"String"</span>                                 <span style="color: #9ca0a4;">;; </span><span style="color: #9ca0a4;">String</span>
+
+sym                                      <span style="color: #9ca0a4;">;; </span><span style="color: #9ca0a4;">Symbol</span>
+
+<span style="color: #b751b6;">true</span>                                     <span style="color: #9ca0a4;">;; </span><span style="color: #9ca0a4;">Boolean</span>
+
+(* (+ <span style="color: #da8548; font-weight: bold;">4</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">2</span>)                            <span style="color: #9ca0a4;">;; </span><span style="color: #9ca0a4;">Integer (nach Funktionsaufruf)</span>
+
+(list <span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #50a14f;">"Hallo"</span> (+ <span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span>))             <span style="color: #9ca0a4;">;; </span><span style="color: #9ca0a4;">Liste</span>
+
+(<span style="color: #e45649;">if</span> (&gt; <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #50a14f;">"It is true"</span> <span style="color: #da8548; font-weight: bold;">100</span>)            <span style="color: #9ca0a4;">;; </span><span style="color: #9ca0a4;">Integer (nach Funktionsaufruf)</span>
+
+(<span style="color: #e45649;">cond</span>
+  (&gt; <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>) <span style="color: #50a14f;">"Ich bin nicht das Ergebnis"</span>
+  (= <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #50a14f;">"Ich bin das Ergebnis"</span>
+  (&gt; <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">2</span>) <span style="color: #50a14f;">"Ich bin nicht das Ergebnis"</span>)  <span style="color: #9ca0a4;">;; </span><span style="color: #9ca0a4;">String</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgf1ced65">
+<h2 id="orgf1ced65">Clojure &#x2014; Syntax, Definitionen</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">def</span> <span style="color: #6a1868;">pi</span> <span style="color: #da8548; font-weight: bold;">3.14159</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb82a5ff">
+<h2 id="orgb82a5ff">Clojure &#x2014; Syntax, Definitionen</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">def</span> <span style="color: #6a1868;">pi</span> <span style="color: #da8548; font-weight: bold;">3.14159</span>)
+
+(<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">add1</span>
+  [x]
+  (+ <span style="color: #da8548; font-weight: bold;">1</span> x))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org7b4129a">
+<h2 id="org7b4129a">Clojure &#x2014; Syntax, Definitionen</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">def</span> <span style="color: #6a1868;">pi</span> <span style="color: #da8548; font-weight: bold;">3.14159</span>)
+
+(<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">add1</span>
+  [x]
+  (+ <span style="color: #da8548; font-weight: bold;">1</span> x))
+
+(<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">factorial</span>
+  [n]
+  (<span style="color: #e45649;">if</span> (= n <span style="color: #da8548; font-weight: bold;">1</span>)
+    <span style="color: #da8548; font-weight: bold;">1</span>
+    (* n (factorial (dec n)))))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org5d720e0">
+<h2 id="org5d720e0">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; <span style="color: #da8548; font-weight: bold;">5</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org117c15a">
+<h2 id="org117c15a">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; <span style="color: #da8548; font-weight: bold;">5</span>
+<span style="color: #da8548; font-weight: bold;">5</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org02685ad">
+<h2 id="org02685ad">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; <span style="color: #da8548; font-weight: bold;">5</span>
+<span style="color: #da8548; font-weight: bold;">5</span>
+
+repl&gt; <span style="color: #50a14f;">"Hallo"</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org3347e54">
+<h2 id="org3347e54">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; <span style="color: #da8548; font-weight: bold;">5</span>
+<span style="color: #da8548; font-weight: bold;">5</span>
+
+repl&gt; <span style="color: #50a14f;">"Hallo"</span>
+<span style="color: #50a14f;">"Hallo"</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org785b10d">
+<h2 id="org785b10d">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; <span style="color: #da8548; font-weight: bold;">5</span>
+<span style="color: #da8548; font-weight: bold;">5</span>
+
+repl&gt; <span style="color: #50a14f;">"Hallo"</span>
+<span style="color: #50a14f;">"Hallo"</span>
+
+repl&gt; (<span style="color: #e45649;">def</span> <span style="color: #6a1868;">pi</span> <span style="color: #da8548; font-weight: bold;">3.14</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org1885015">
+<h2 id="org1885015">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; <span style="color: #da8548; font-weight: bold;">5</span>
+<span style="color: #da8548; font-weight: bold;">5</span>
+
+repl&gt; <span style="color: #50a14f;">"Hallo"</span>
+<span style="color: #50a14f;">"Hallo"</span>
+
+repl&gt; (<span style="color: #e45649;">def</span> <span style="color: #6a1868;">pi</span> <span style="color: #da8548; font-weight: bold;">3.14</span>)
+repl&gt;
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org878fd82">
+<h2 id="org878fd82">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; <span style="color: #da8548; font-weight: bold;">5</span>
+<span style="color: #da8548; font-weight: bold;">5</span>
+
+repl&gt; <span style="color: #50a14f;">"Hallo"</span>
+<span style="color: #50a14f;">"Hallo"</span>
+
+repl&gt; (<span style="color: #e45649;">def</span> <span style="color: #6a1868;">pi</span> <span style="color: #da8548; font-weight: bold;">3.14</span>)
+repl&gt; pi
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgcebd93e">
+<h2 id="orgcebd93e">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; <span style="color: #da8548; font-weight: bold;">5</span>
+<span style="color: #da8548; font-weight: bold;">5</span>
+
+repl&gt; <span style="color: #50a14f;">"Hallo"</span>
+<span style="color: #50a14f;">"Hallo"</span>
+
+repl&gt; (<span style="color: #e45649;">def</span> <span style="color: #6a1868;">pi</span> <span style="color: #da8548; font-weight: bold;">3.14</span>)
+repl&gt; pi
+<span style="color: #da8548; font-weight: bold;">3.14</span>
+</pre>
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org3f4f4ef">
+<h2 id="org3f4f4ef">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; (<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">foo</span> [x y] (+ x y))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgac37f0b">
+<h2 id="orgac37f0b">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; (<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">foo</span> [x y] (+ x y))
+repl&gt;
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org7875beb">
+<h2 id="org7875beb">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; (<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">foo</span> [x y] (+ x y))
+repl&gt; (foo <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org0367606">
+<h2 id="org0367606">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; (<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">foo</span> [x y] (+ x y))
+repl&gt; (foo <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+<span style="color: #da8548; font-weight: bold;">7</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org4fae88c">
+<h2 id="org4fae88c">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; (<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">foo</span> [x y] (+ x y))
+repl&gt; (foo <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+<span style="color: #da8548; font-weight: bold;">7</span>
+
+repl&gt; (foo (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>) (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgf457feb">
+<h2 id="orgf457feb">Clojure &#x2014; Evaluation</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">repl&gt; (<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">foo</span> [x y] (+ x y))
+repl&gt; (foo <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+<span style="color: #da8548; font-weight: bold;">7</span>
+
+repl&gt; (foo (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>) (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+<span style="color: #da8548; font-weight: bold;">7</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org0927604">
+<h2 id="org0927604">Clojure &#x2014; Evaluationsschritte</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(foo (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>) (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org9ade6c7">
+<h2 id="org9ade6c7">Clojure &#x2014; Evaluationsschritte</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(foo (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>) (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+
+&#8605; (foo <span style="color: #da8548; font-weight: bold;">3</span> (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org07411c6">
+<h2 id="org07411c6">Clojure &#x2014; Evaluationsschritte</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(foo (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>) (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+
+&#8605; (foo <span style="color: #da8548; font-weight: bold;">3</span> (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+
+&#8605; (foo <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgbf68a86">
+<h2 id="orgbf68a86">Clojure &#x2014; Evaluationsschritte</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(foo (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>) (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+
+&#8605; (foo <span style="color: #da8548; font-weight: bold;">3</span> (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+
+&#8605; (foo <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+
+&#8605; (+ <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgf9ba898">
+<h2 id="orgf9ba898">Clojure &#x2014; Evaluationsschritte</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(foo (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>) (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+
+&#8605; (foo <span style="color: #da8548; font-weight: bold;">3</span> (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">2</span>))
+
+&#8605; (foo <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+
+&#8605; (+ <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+
+&#8605; <span style="color: #da8548; font-weight: bold;">7</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org09d187c">
+<h2 id="org09d187c">Clojure &#x2014; REPL</h2>
+<p>
+<b>R</b> EAD
+</p>
+
+<p>
+<b>E</b> VAL
+</p>
+
+<p>
+<b>P</b> RINT
+</p>
+
+<p>
+<b>L</b> OOP
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org0453b76">
+<h2 id="org0453b76">Clojure &#x2014; REPL</h2>
+<p>
+<br />
+</p>
+
+<p>
+Live-Coding
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org8a94071">
+<h2 id="org8a94071">Kompilation &#x2014; Read und Eval</h2>
+<p>
+<br />
+</p>
+
+
+<div id="org4eb79b5" class="figure">
+<p><object type="image/svg+xml" data="images/read-eval.svg" class="org-svg" width="800px">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<p>
+<br />
+<br />
+</p>
+
+<p>
+Der Clojure-Reader liest Text und gibt Datenstrukturen ("forms") zurück.
+</p>
+
+<p>
+Der Evaluator nimmt Datenstrukturen ("forms") und evaluiert sie zu Werten.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org8f4e155">
+<h2 id="org8f4e155">Kompilation &#x2014; Read und Eval</h2>
+<p>
+<br />
+</p>
+
+<p>
+Live-Coding
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orge833a4a">
+<h2 id="orge833a4a">Kompilation &#x2014; Read und Eval</h2>
+<p>
+<br />
+</p>
+
+
+<div id="org5a187fe" class="figure">
+<p><object type="image/svg+xml" data="images/read-eval.svg" class="org-svg" width="800px">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<p>
+<br />
+<br />
+</p>
+
+<p>
+Der Clojure-Reader liest Text und gibt Datenstrukturen ("forms") zurück.
+</p>
+
+<p>
+Der Evaluator nimmt Datenstrukturen ("forms") und evaluiert sie zu Werten.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org2149709">
+<h2 id="org2149709">Kompilation &#x2014; Read, Eval und Makroexpansion!</h2>
+<p>
+<br />
+</p>
+
+
+<div id="orgea3a7d7" class="figure">
+<p><object type="image/svg+xml" data="images/read-macro-eval.svg" class="org-svg" width="900px">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgbd2b024">
+<h2 id="orgbd2b024">Kompilation &#x2014; Read, Eval und Makroexpansion!</h2>
+<p>
+<br />
+</p>
+
+
+<div id="orgc79d53f" class="figure">
+<p><object type="image/svg+xml" data="images/read-macro-eval.svg" class="org-svg" width="900px">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<p>
+<br />
+<br />
+</p>
+
+<p>
+In der Makroexpansion werden Makroaufrufe getätigt.
+</p>
+
+<aside class="notes">
+<p>
+Weil ja READ Datenstrukturen liefert und EVAL Datenstrukturen entgegennimmt,
+muss folgen, dass Makros Datenstrukturen konsumieren und zurückgeben
+</p>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-org95970d6">
+<h2 id="org95970d6">Kompilation &#x2014; Read, Eval und Makroexpansion!</h2>
+<p>
+<br />
+</p>
+
+
+<div id="orga3e0354" class="figure">
+<p><object type="image/svg+xml" data="images/read-macro-eval.svg" class="org-svg" width="900px">
+Sorry, your browser does not support SVG.</object>
+</p>
+</div>
+
+<p>
+<br />
+<br />
+</p>
+
+<p>
+Makros nehmen Datenstrukturen ("forms") entgegen und geben Datenstrukturen
+("forms") zurück.
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org99f3c8c">
+<h2 id="org99f3c8c">Makros</h2>
+<p>
+<br />
+<br />
+</p>
+
+<p>
+Makros nehmen Datenstrukturen ("forms") entgegen und geben Datenstrukturen
+("forms") zurück.
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgfe865d5">
+<h2 id="orgfe865d5">Makros</h2>
+<p>
+<br />
+<br />
+</p>
+
+<p>
+Makros nehmen Datenstrukturen ("forms") entgegen und <b>geben Datenstrukturen
+("forms") zurück.</b>
+</p>
+
+<p>
+<br />
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgda9d29e">
+<h2 id="orgda9d29e">Makros &#x2014; Infix</h2>
+<p>
+Statt 
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>)
+</pre>
+</div>
+
+<p>
+wollen wir
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org6fdeab0">
+<h2 id="org6fdeab0">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  ...)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org81a64ba">
+<h2 id="org81a64ba">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  (list ...))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org40653dd">
+<h2 id="org40653dd">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  (list ... ... ...))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org3b8bdf0">
+<h2 id="org3b8bdf0">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  (list (second form) ... ...))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orga8490b0">
+<h2 id="orga8490b0">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  (list (second form) (first form) ...))
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org4f50e43">
+<h2 id="org4f50e43">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  (list (second form) (first form) (third form)))
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org01f89e2">
+<h2 id="org01f89e2">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  (list (second form) (first form) (third form)))
+
+repl&gt; (calc-infix (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org2f49239">
+<h2 id="org2f49239">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  (list (second form) (first form) (third form)))
+
+repl&gt; (calc-infix (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>))
+
+READER
+Datenstruktur: (calc-infix (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org498b625">
+<h2 id="org498b625">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  (list (second form) (first form) (third form)))
+
+repl&gt; (calc-infix (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>))
+
+READER
+Datenstruktur: (calc-infix (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>))
+
+MAKROEXPANSION
+&#8605; (list (second (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>)) (first (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>)) (third (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>)))
+&#8605; (list + <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>)
+&#8605; (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>) [Datenstruktur!]
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgafac159">
+<h2 id="orgafac159">Makros &#x2014; Infix</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">defmacro</span> <span style="color: #a626a4;">calc-infix</span>
+  [form]
+  (list (second form) (first form) (third form)))
+
+repl&gt; (calc-infix (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>))
+
+READER
+Datenstruktur: (calc-infix (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>))
+
+MAKROEXPANSION
+&#8605; (list (second (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>)) (first (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>)) (third (<span style="color: #da8548; font-weight: bold;">2</span> + <span style="color: #da8548; font-weight: bold;">1</span>)))
+&#8605; (list + <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>)
+&#8605; (+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>) [Datenstruktur!]
+
+EVAL
+(+ <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">1</span>)
+&#8605; <span style="color: #da8548; font-weight: bold;">3</span>
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orge9c8398">
+<h2 id="orge9c8398">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Wollen die <b>form</b> <code>(+ (* 2 3) 4)</code> erstellen.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgdfeff90">
+<h2 id="orgdfeff90">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Wollen die <b>form</b> <code>(+ (* 2 3) 4)</code> erstellen.
+</p>
+
+<p>
+Umständlich und unleserlich:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(list + (list * <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org5c9b75f">
+<h2 id="org5c9b75f">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Wollen die <b>form</b> <code>(+ (* 2 3) 4)</code> erstellen.
+</p>
+
+<p>
+Umständlich und unleserlich:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(list + (list * <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+&#8605; (+ (* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org735289d">
+<h2 id="org735289d">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Wollen die <b>form</b> <code>(+ (* 2 3) 4)</code> erstellen.
+</p>
+
+<p>
+Umständlich und unleserlich:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(list + (list * <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+<p>
+<br />
+</p>
+
+<p>
+Besser:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">`(+ (* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org945b210">
+<h2 id="org945b210">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Jedoch
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(list + (* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+&#8605; (+ <span style="color: #da8548; font-weight: bold;">6</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org0046488">
+<h2 id="org0046488">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Jedoch
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(list + (* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+&#8605; (+ <span style="color: #da8548; font-weight: bold;">6</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+<p>
+<br />
+</p>
+
+<p>
+Aber
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">`(+ (* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc074a16">
+<h2 id="orgc074a16">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Jedoch
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(list + (* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+&#8605; (+ <span style="color: #da8548; font-weight: bold;">6</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+<p>
+<br />
+</p>
+
+<p>
+Aber
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">`(+ (* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+&#8605; (+ (* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org87d7342">
+<h2 id="org87d7342">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Abhilfe
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">`(+ (* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org9a8eca2">
+<h2 id="org9a8eca2">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Abhilfe
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">`(+ ~(* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgced0e76">
+<h2 id="orgced0e76">Makros &#x2014; Quote und Unquote</h2>
+<p>
+Abhilfe
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">`(+ ~(* <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span>) <span style="color: #da8548; font-weight: bold;">4</span>)
+&#8605; (+ <span style="color: #da8548; font-weight: bold;">6</span> <span style="color: #da8548; font-weight: bold;">4</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgaad18b9">
+<h2 id="orgaad18b9">Makros &#x2014; Quote und Unquote</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">def</span> <span style="color: #6a1868;">my-var</span> <span style="color: #da8548; font-weight: bold;">100</span>)
+
+`(<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> my-var)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org5704e0a">
+<h2 id="org5704e0a">Makros &#x2014; Quote und Unquote</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">def</span> <span style="color: #6a1868;">my-var</span> <span style="color: #da8548; font-weight: bold;">100</span>)
+
+`(<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> my-var)
+&#8605; (<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> my-var)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orga6084c7">
+<h2 id="orga6084c7">Makros &#x2014; Quote und Unquote</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">def</span> <span style="color: #6a1868;">my-var</span> <span style="color: #da8548; font-weight: bold;">100</span>)
+
+`(<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> my-var)
+&#8605; (<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> my-var)
+
+`(<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> ~my-var)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org8f2f2f4">
+<h2 id="org8f2f2f4">Makros &#x2014; Quote und Unquote</h2>
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">def</span> <span style="color: #6a1868;">my-var</span> <span style="color: #da8548; font-weight: bold;">100</span>)
+
+`(<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> my-var)
+&#8605; (<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> my-var)
+
+`(<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> ~my-var)
+&#8605; (<span style="color: #da8548; font-weight: bold;">1</span> <span style="color: #da8548; font-weight: bold;">2</span> <span style="color: #da8548; font-weight: bold;">3</span> <span style="color: #da8548; font-weight: bold;">100</span>)
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgef3d3b7">
+<h2 id="orgef3d3b7">Method Timing</h2>
+<p>
+Java?
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org641e86f">
+<h2 id="org641e86f">Method Timing</h2>
+<p>
+Java?
+</p>
+
+<p>
+<a href="https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java">https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java</a>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgdb57a7e">
+<h2 id="orgdb57a7e">Method Timing</h2>
+<p>
+Java?
+</p>
+
+<p>
+<a href="https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java">https://stackoverflow.com/questions/180158/how-do-i-time-a-methods-execution-in-java</a>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #986801;">long</span> <span style="color: #6a1868;">startTime</span> = System.currentTimeMillis();
+
+doReallyLongThing();
+
+<span style="color: #986801;">long</span> <span style="color: #6a1868;">endTime</span> = System.currentTimeMillis();
+
+System.out.println(<span style="color: #50a14f;">"Needed "</span> + (endTime - startTime) + <span style="color: #50a14f;">" ms."</span>);
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org820c2b7">
+<h2 id="org820c2b7">Method Timing</h2>
+<p>
+Clojure?
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb0b1a13">
+<h2 id="orgb0b1a13">Method Timing</h2>
+<p>
+Clojure?
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">let</span> [before (<span style="color: #986801;">System</span>/currentTimeMillis)
+      result (do-something)
+      after  (<span style="color: #986801;">System</span>/currentTimeMillis)]
+  (println <span style="color: #50a14f;">"Needed "</span> (- after before) <span style="color: #50a14f;">" ms."</span>))
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org975adeb">
+<h2 id="org975adeb">Method Timing</h2>
+<p>
+Clojure?
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #e45649;">let</span> [before (<span style="color: #986801;">System</span>/currentTimeMillis)
+      result (do-something)
+      after  (<span style="color: #986801;">System</span>/currentTimeMillis)]
+  (println <span style="color: #50a14f;">"Needed "</span> (- after before) <span style="color: #50a14f;">" ms."</span>))
+</pre>
+</div>
+
+<p>
+<br />
+</p>
+
+<p>
+Zu viel Handarbeit!
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org324c0ea">
+<h2 id="org324c0ea">Method Timing</h2>
+<p>
+<br />
+</p>
+
+<p>
+Live-Coding
+</p>
+
+<aside class="notes">
+<ul>
+<li>Benutze <code>C-c M-p</code> (insert-last-sexpr in REPL)</li>
+
+</ul>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-orgfda28e4">
+<h2 id="orgfda28e4">String switch</h2>
+<p>
+<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/language/strings-switch.html">https://docs.oracle.com/javase/8/docs/technotes/guides/language/strings-switch.html</a>
+</p>
+
+<p>
+<i>" In the JDK 7 release, you can use a String object in the expression of a</i>
+<i>switch statement: "</i>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-java"><span style="color: #e45649;">public</span> <span style="color: #986801;">String</span> <span style="color: #a626a4;">getTypeOfDayWithSwitchStatement</span>(<span style="color: #986801;">String</span> <span style="color: #6a1868;">dayOfWeekArg</span>) {
+     <span style="color: #986801;">String</span> <span style="color: #6a1868;">typeOfDay</span>;
+     <span style="color: #e45649;">switch</span> (dayOfWeekArg) {
+         <span style="color: #e45649;">case</span> <span style="color: #50a14f;">"Monday"</span>:
+             typeOfDay = <span style="color: #50a14f;">"Start of work week"</span>;
+             <span style="color: #e45649;">break</span>;
+         <span style="color: #e45649;">case</span> <span style="color: #50a14f;">"Tuesday"</span>:
+         <span style="color: #e45649;">case</span> <span style="color: #50a14f;">"Wednesday"</span>:
+         <span style="color: #e45649;">case</span> <span style="color: #50a14f;">"Thursday"</span>:
+             typeOfDay = <span style="color: #50a14f;">"Midweek"</span>;
+             <span style="color: #e45649;">break</span>;
+      ...
+</pre>
+</div>
+
+<aside class="notes">
+<p>
+Release war: 2011-07-11	
+</p>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-org14d93ed">
+<h2 id="org14d93ed">vorhandene Typsysteme</h2>
+<p>
+<code>prismatic/schema</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #986801;">s</span>/<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">foo</span> <span style="color: #b751b6;">:-</span> <span style="color: #986801;">s</span>/Num
+  [x <span style="color: #b751b6;">:-</span> <span style="color: #986801;">s</span>/Int
+   y <span style="color: #b751b6;">:-</span> <span style="color: #986801;">s</span>/Num]
+  (* x y))
+</pre>
+</div>
+
+<aside class="notes">
+<ul>
+<li>Es gibt schon Libraries für Typsysteme, die bekanntesten sind Typed Clojure,
+Clojure Spec und Schema. Sie haben alle drei ein etwas anderes
+Anwendungsgebiet:
+<ul>
+<li>spec und schema: runtime check, ähnlich zu Contracts</li>
+
+</ul></li>
+
+</ul>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-orgf1f0118">
+<h2 id="orgf1f0118">vorhandene Typsysteme</h2>
+<p>
+<code>clojure.spec</code>
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(<span style="color: #986801;">s</span>/fdef foo
+  <span style="color: #b751b6;">:args</span> (<span style="color: #986801;">s</span>/and (<span style="color: #986801;">s</span>/cat <span style="color: #b751b6;">:x</span> int? <span style="color: #b751b6;">:y</span> int?)
+               #(&gt; (<span style="color: #b751b6;">:x</span> <span style="color: #6a1868;">%</span>) <span style="color: #da8548; font-weight: bold;">0</span>)
+  <span style="color: #b751b6;">:ret</span> int?)
+
+(<span style="color: #e45649;">defn</span> <span style="color: #a626a4;">foo</span>
+  [x y]
+  (* x y))
+</pre>
+</div>
+
+<p>
+<br />
+</p>
+
+<p>
+und Typed Clojure
+</p>
+
+<aside class="notes">
+<ul>
+<li>Typed Clojure: Static Type analysis (zur Compile-Zeit)</li>
+
+</ul>
+
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-orgaa8ed93">
+<h2 id="orgaa8ed93">DSLs</h2>
+<p>
+Beispiel: Datenbankspezifische Sprache
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-clojure">(do-db put <span style="color: #da8548; font-weight: bold;">1</span> {<span style="color: #b751b6;">:name</span> <span style="color: #50a14f;">"Kaan"</span> <span style="color: #b751b6;">:abc</span> <span style="color: #da8548; font-weight: bold;">5</span>}
+       put <span style="color: #da8548; font-weight: bold;">2</span> {<span style="color: #b751b6;">:name</span> <span style="color: #50a14f;">"Johannes"</span> <span style="color: #b751b6;">:abc</span> <span style="color: #da8548; font-weight: bold;">7</span>}
+       get-all where <span style="color: #b751b6;">:abc</span> &gt; <span style="color: #da8548; font-weight: bold;">5</span>)
+
+
+&#8605; {<span style="color: #da8548; font-weight: bold;">2</span> {<span style="color: #b751b6;">:name</span> <span style="color: #50a14f;">"Johannes"</span> <span style="color: #b751b6;">:abc</span> <span style="color: #da8548; font-weight: bold;">7</span>}} 
+</pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org88f99e6">
+<h2 id="org88f99e6">Noch einen Schritt weiter</h2>
+<p>
+<br />
+</p>
+
+<p>
+<i>Language Oriented Programming:</i> Racket 
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="file:///home/kaan/tmp/reveal.js/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 't',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // see README of reveal.js for options
+transitionSpeed: 'default',
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+ { src: 'file:///home/kaan/tmp/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+
+});
+</script>
+</body>
+</html>
