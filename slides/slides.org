@@ -837,6 +837,33 @@ public String getTypeOfDayWithSwitchStatement(String dayOfWeekArg) {
 Release war: 2011-07-11	
 #+end_notes
 
+* Method Timing
+
+Wollen folgende Syntax implementieren
+
+#+begin_src clojure
+(def y "Work")
+
+(switch y
+        case "Holiday" -> "I am not around"
+        case "Work" -> "How can I help?")
+#+end_src
+
+* Method Timing
+
+#+begin_src clojure
+(switch y
+        case "Holiday" -> "I am not around"
+        case "Work" -> "How can I help?")
+
+↝ [MAKROEXPANSION]
+
+(cond
+  (= y "Holiday") "I am not around"
+  (= y "Work") "How can I help?")
+#+end_src
+
+
 * vorhandene Typsysteme
 
 =prismatic/schema=
