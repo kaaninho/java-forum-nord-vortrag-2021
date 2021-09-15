@@ -398,7 +398,81 @@ Der Evaluator nimmt Datenstrukturen ("forms") und evaluiert sie zu Werten.
 
 \\
 
-Live-Coding
+#+begin_src clojure
+repl> (read-string "3")
+#+end_src
+
+* Kompilation --- Read und Eval
+
+\\
+
+#+begin_src clojure
+repl> (read-string "3")
+3
+#+end_src
+
+* Kompilation --- Read und Eval
+
+\\
+
+#+begin_src clojure
+repl> (read-string "3")
+3
+repl> (read-string "(+ 1 2)")
+#+end_src
+
+* Kompilation --- Read und Eval
+
+\\
+
+#+begin_src clojure
+repl> (read-string "3")
+3
+repl> (read-string "(+ 1 2)")
+(+ 1 2)
+#+end_src
+
+* Kompilation --- Read und Eval
+
+\\
+
+#+begin_src clojure
+repl> (read-string "3")
+3
+repl> (read-string "(+ 1 2)")
+(+ 1 2)
+repl> (read-string "(+ 1 2")
+#+end_src
+
+* Kompilation --- Read und Eval
+
+\\
+
+#+begin_src clojure
+repl> (read-string "3")
+3
+repl> (read-string "(+ 1 2)")
+(+ 1 2)
+repl> (read-string "(+ 1 2")
+ERROR: EOF
+#+end_src
+
+* Kompilation --- Read und Eval
+
+\\
+
+#+begin_src clojure
+repl> (eval (read-string "(+ 1 2)"))
+#+end_src
+
+* Kompilation --- Read und Eval
+
+\\
+
+#+begin_src clojure
+repl> (eval (read-string "(+ 1 2)"))
+3
+#+end_src
 
 * Kompilation --- Read und Eval
 
@@ -1178,6 +1252,23 @@ Wollen
         (case "Holiday" -> "I am not around")
         (case "Work"    -> "How can I help?")
         (case "Sleep"   -> "zzZZzzzzZZ"))
+#+end_src
+
+* String switch
+
+\\ 
+
+#+begin_src clojure
+(defn prepare-form [value form]
+  `((= ~value ~(first form)) ~(second form)))
+
+(defn prepare-forms [value forms]
+  (map (fn [form] (prepare-form value form))
+       forms))
+
+(defmacro switch [value & forms]
+  `(cond
+     ~@(prepare-forms value forms)))
 #+end_src
 
 * String switch
